@@ -1,0 +1,27 @@
+.Nav {
+  background-color: #fff;
+  border-bottom: 1px solid rgba(219, 219, 219, 1);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+  -webkit-transition: height 0.2s ease-in-out;
+  transition: height 0.2s ease-in-out;
+  height: 52px;
+  display: flex;
+}
+
+.Nav-menus {
+  padding: 12px 5px;
+  margin: 0 auto;
+}
+
+.Nav-Item {
+  padding: 0 10px;
+  > img {
+    vertical-align: middle;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+  }
+}

@@ -1,7 +1,5 @@
-/* eslint-disable react/prop-types,react/jsx-props-no-spreading */
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import historyRoutes from './historyRoutes';
