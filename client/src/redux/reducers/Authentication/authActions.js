@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { toast } from 'react-toastify';
+//import { toast } from 'react-toastify';
 import authActionTypes from './authActionTypes';
 import historyRoutes from '../../../routing/historyRoutes';
 import history from '../../../utils/history';
