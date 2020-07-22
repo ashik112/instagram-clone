@@ -25,16 +25,18 @@ const login = (credentials) => {
       .then(async (res) => {
         if (res.data && res.data.user_details) {
           await dispatch(success(res.data));
-          history.push(historyRoutes.dashboard.sales);
+          history.push(historyRoutes.profile);
         }
       })
       .catch((error) => {
-        const message = error.response.data.detail;
-        if (message) {
-          toast.error('Wrong Username / Password!', {
+        //const message = error.response;
+        /*if (error) {
+          toast('wrong username / password ❕', {
             position: toast.POSITION.BOTTOM_CENTER,
+            hideProgressBar: true,
+            rtl: true,
           });
-        }
+        }*/
         dispatch(failure(error));
       });
   };

@@ -68,7 +68,6 @@ const LoginForm = ({ loading, onLogIn }) => {
             )}
           </Field>
           <Button
-            color="primary"
             size="sm"
             block
             className="text-light"

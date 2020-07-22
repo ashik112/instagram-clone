@@ -9,6 +9,7 @@ import LoginPage from './containers/Login/LoginPage';
 import LayoutWrapper from './containers/Layout/LayoutWrapper';
 import './App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = ({ store, persistor }) => (
   <Provider store={store}>

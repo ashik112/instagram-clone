@@ -20,7 +20,7 @@ class LoginPage extends Component {
 
   render() {
     const { authReducer, onLogIn } = this.props;
-    const { loading } = authReducer;
+    const { loading, error } = authReducer;
     return (
       <Container fluid className="text-center Login-container" style={{ height: '100vh' }}>
         {/*<div className="background-image" />*/}
@@ -32,6 +32,12 @@ class LoginPage extends Component {
                   <img className="img-fluid" src={logo} alt="logo" />
                 </div>
                 <LoginForm loading={loading} onLogIn={onLogIn} />
+                { error && (
+                  <div className="text-center">
+                    <hr/>
+                    <span className="text-danger small">Sorry, your password was incorrect. Please double-check your password.</span>
+                  </div>
+                )}
               </CardBody>
             </Card>
           </Col>
