@@ -5,6 +5,8 @@ import './NavBar.scss';
 import logo from '../../../assets/logo.png';
 import history from '../../../utils/history';
 import historyRoutes from '../../../routing/historyRoutes';
+import { FiSearch } from 'react-icons/fi';
+import { InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 
 const NavBar = ({ authReducer }) => {
   const { token } = authReducer;
@@ -17,7 +19,12 @@ const NavBar = ({ authReducer }) => {
               <img role="button" src={logo} alt="Instagram" />
             </Col>
             <Col className="text-center" md={4} sm={4} lg={4} xs={4}>
-              <Input bsSize="sm" type="text" />
+              <InputGroup size="sm">
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText><FiSearch /></InputGroupText>
+                </InputGroupAddon>
+                <Input bsSize="sm" type="text" placeholder="Search" />
+              </InputGroup>
             </Col>
             <Col className="text-right" md={4} sm={4} lg={4} xs={4}>
               {
@@ -27,7 +34,7 @@ const NavBar = ({ authReducer }) => {
                   </span>
                 )) || (
                   <>
-                    <Button onClick={() => history.push(historyRoutes.login)} size="sm" color="primary">Sign In</Button>
+                    <Button onClick={() => history.push(historyRoutes.login)} size="sm" color="secondary">Sign In</Button>
                   </>
                 )
               }
