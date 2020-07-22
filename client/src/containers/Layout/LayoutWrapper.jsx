@@ -7,10 +7,8 @@ import NoMatch from '../../shared/components/NoMatch';
 const LayoutWrapper =(props) => {
   return(
     <>
-      <div className="mb-5">
-        <NavBar />
-      </div>
-      <div className="Compact p-lg-5">
+      <NavBar />
+      <div className="Compact" style={{ marginTop: '80px' }}>
         <Switch>
           <Route exact path="/:username" component={ProfilePage} />
           <Route component={NoMatch} />

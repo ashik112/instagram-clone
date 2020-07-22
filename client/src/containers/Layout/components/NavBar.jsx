@@ -27,7 +27,7 @@ const NavBar = ({ authReducer }) => {
                   </span>
                 )) || (
                   <>
-                    <Button onClick={() => history.push(historyRoutes.login)} size="sm" color="primary">Sign In</Button>
+                    <Button onClick={() => history.push(historyRoutes.login)} size="sm" color="secondary">Sign In</Button>
                   </>
                 )
               }
