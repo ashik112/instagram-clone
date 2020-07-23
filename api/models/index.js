@@ -29,7 +29,6 @@ db.users.hasMany(db.comments, {
   allowNull: false,
 });
 db.users.hasMany(db.posts, {
-  foreignKey: 'posedBy',
   allowNull: false,
 });
 db.users.hasMany(db.likes, {
