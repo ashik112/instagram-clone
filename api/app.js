@@ -44,7 +44,7 @@ app.use(function(err, req, res, next) {
 
 /// db.sequelize.sync(); // enable in production mode
 // create all the defined tables in the specified database. { force: true }
-db.sequelize.sync({ force: false }).then(() => {
+db.sequelize.sync({ force: false, alter: true, drop: false }).then(() => {
   console.log("drop & re-sync database.");
 }).catch((error) => {
   console.log('ERROR: ', error)
