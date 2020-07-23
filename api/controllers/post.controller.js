@@ -4,6 +4,7 @@ const db = require('../models');
 
 const User = db.users;
 const Post = db.posts;
+const Like = db.likes;
 
 // Create a new post
 exports.create = async (req, res) => {
@@ -18,7 +19,9 @@ exports.create = async (req, res) => {
   const { filename } = req.file;
   const destination = `public/uploads/${filename}`;
   const source = `public/temp/${filename}`;
+  let transaction;
   try {
+    transaction = await db.sequelize.transaction();
     // move image from temp to uploads
     await moveFile(source, destination);
     const data = await Post.create({
@@ -26,12 +29,15 @@ exports.create = async (req, res) => {
       userId: req.body.userId,
       photo: destination,
     });
+    // commit
+    await transaction.commit();
     res.send(data);
   } catch (e) {
     // remove image from temp
     fs.unlink(source, () => {});
     // remove image from uploads if it's already moved
     fs.unlink(destination, () => {});
+    if (transaction) await transaction.rollback();
     res.status(500).send({
       error: 2,
       message:
@@ -65,7 +71,15 @@ exports.update = async (req, res) => {
 // Get all Posts
 exports.findAll = async (req, res) => {
   try {
-    const data = await Post.findAll();
+    const data = await Post.findAll({
+      include: [{
+        model: User,
+      }, {
+        model: Like,
+        as: 'likes',
+        include: [User],
+      }],
+    });
     res.send(data);
   } catch (e) {
     res.status(500).send({
@@ -86,6 +100,9 @@ exports.findOne = async (req, res) => {
       },
       include: [{
         model: User,
+      }, {
+        model: Like,
+        as: 'likes',
       }],
     });
     if (!data) {
@@ -110,7 +127,7 @@ exports.removeOne = async (req, res) => {
   try {
     const data = await Post.destroy({ where: { id } });
     if (data) {
-      res.status(200).send({
+      res.status(204).send({
         message: 'Deleted Successfully',
       });
     } else {

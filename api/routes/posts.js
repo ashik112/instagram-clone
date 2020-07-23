@@ -3,6 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const helpers = require('../helpers');
 const posts = require('../controllers/post.controller');
+const likes = require('../controllers/like.controller');
 
 const router = express.Router();
 
@@ -31,5 +32,9 @@ router.patch('/:id', posts.update);
 
 // Retrieve single User
 router.delete('/:id', posts.removeOne);
+
+// Retrieve single User
+router.post('/:postId/like', likes.create);
+router.delete('/:postId/dislike', likes.remove);
 
 module.exports = router;
