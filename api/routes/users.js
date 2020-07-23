@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const helpers = require('../helpers');
-const users = require('../controllers/user.controller.js');
+const users = require('../controllers/user.controller');
 
 const router = express.Router();
 
