@@ -27,7 +27,7 @@ exports.create = async (req, res) => {
     const data = await Post.create({
       description: req.body.description,
       userId: req.body.userId,
-      photo: destination,
+      photo: filename,
     });
     // commit
     await transaction.commit();
@@ -125,8 +125,12 @@ exports.findOne = async (req, res) => {
 exports.removeOne = async (req, res) => {
   const { id } = req.params;
   try {
-    const data = await Post.destroy({ where: { id } });
-    if (data) {
+    const data = await Post.findByPk(id);
+    const photo = data.getDataValue('photo');
+    if (photo) {
+      await fs.unlinkSync(`public/uploads/${photo}`);
+    }
+    if (await Post.destroy({ where: { id } })) {
       res.status(204).send({
         message: 'Deleted Successfully',
       });

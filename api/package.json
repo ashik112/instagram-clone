@@ -21,7 +21,8 @@
     "move-file": "^2.0.0",
     "multer": "^1.4.2",
     "mysql2": "^2.1.0",
-    "sequelize": "^6.3.3"
+    "sequelize": "^6.3.3",
+    "serve-index": "^1.9.1"
   },
   "description": "Backend for a simple instagram clone",
   "main": "app.js",

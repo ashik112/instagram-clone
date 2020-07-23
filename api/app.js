@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const serveIndex = require('serve-index');
 const bodyParser = require('body-parser');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -24,9 +25,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
+// app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
+app.use('/ftp', express.static('public'), serveIndex('public', { icons: true }));
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 
@@ -48,7 +49,7 @@ app.use((err, req, res, next) => {
 });
 
 /// db.sequelize.sync(); // enable in production mode
-// create all the defined tables in the specified database. { force: true }
+// create all the defined tables in the specified database. ! { force: true } will drop tables
 db.sequelize.sync({ force: false, alter: true, drop: false }).then(() => {
   console.log('Re-Sync Database.');
 }).catch((error) => {
