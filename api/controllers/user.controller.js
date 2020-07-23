@@ -33,10 +33,10 @@ exports.create = async (req, res) => {
   }
 };
 
-// Retrieve all Users/ find by username from the database
+// Retrieve all Users/ find by name from the database
 exports.findAll = async (req, res) => {
-  const { username } = req.query;
-  const condition = username ? { username: { [Op.like]: `%${username}%` } } : null;
+  const { name } = req.query;
+  const condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
   try {
     const data = await User.findAll({ where: condition });
     res.send(data);
@@ -123,17 +123,79 @@ exports.findOne = async (req, res) => {
   }
 };
 
-// Update a User by the id in the request
-exports.update = (req, res) => {
+// Find a single User with an id
+exports.findByUsername = async (req, res) => {
+  const { username } = req.params;
+  try {
+    const data = await User.findOne({
+      where: {
+        username,
+      },
+    });
+    if (!data) {
+      res.status(404).send({
+        message: `Error retrieving User with username=${username}`,
+      });
+      return;
+    }
+    res.send(data);
+  } catch (e) {
+    res.status(500).send({
+      error: e,
+      message: `Error retrieving User with username=${username}`,
+    });
+  }
+};
 
+// Update a User by the id in the request
+exports.update = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await User.update({
+      description: req.body.description,
+      name: req.body.name,
+      username: req.body.username,
+      email: req.body.email,
+    }, {
+      where: { id },
+    });
+    if (data[0] > 0) {
+      const user = await User.findByPk(id);
+      res.send(user);
+    }
+  } catch (e) {
+    res.status(500).send({
+      error: 2,
+      message:
+        e.message || `Some error occurred while updating the post=${id}`,
+    });
+  }
 };
 
 // Delete a User with the specified id in the request
-exports.delete = (req, res) => {
-
-};
-
-// Delete all Users from the database.
-exports.deleteAll = (req, res) => {
-
+exports.delete = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await User.findByPk(id);
+    if (await User.destroy({ where: { id } })) {
+      const avatar = data.getDataValue('avatar');
+      if (avatar) {
+        fs.unlink(`public/uploads/${avatar}`, () => {});
+      }
+      res.status(204).send({
+        message: 'Deleted Successfully',
+      });
+    } else {
+      res.status(404).send({
+        message:
+          `No row found for user=${id}`,
+      });
+    }
+  } catch (e) {
+    res.status(500).send({
+      error: e,
+      message:
+        e.message || `Some error occurred while deleting user=${id}`,
+    });
+  }
 };

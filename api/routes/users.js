@@ -27,6 +27,15 @@ router.get('/', users.findAll);
 // Retrieve single User
 router.get('/:id', users.findOne);
 
+// Retrieve single User
+router.get('/username/:username', users.findByUsername);
+
+// Delete single User
+router.delete('/:id', users.delete);
+
+// Update single User
+router.patch('/:id', users.update);
+
 // Upload User avatar
 router.post('/upload-avatar', upload, users.createAvatar);
 

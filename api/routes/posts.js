@@ -31,7 +31,7 @@ router.get('/:id', posts.findOne);
 router.patch('/:id', posts.update);
 
 // Retrieve single User
-router.delete('/:id', posts.removeOne);
+router.delete('/:id', posts.delete);
 
 // Retrieve single User
 router.post('/:postId/like', likes.create);

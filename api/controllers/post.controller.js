@@ -122,15 +122,15 @@ exports.findOne = async (req, res) => {
 };
 
 // Delete a post
-exports.removeOne = async (req, res) => {
+exports.delete = async (req, res) => {
   const { id } = req.params;
   try {
     const data = await Post.findByPk(id);
-    const photo = data.getDataValue('photo');
-    if (photo) {
-      await fs.unlinkSync(`public/uploads/${photo}`);
-    }
     if (await Post.destroy({ where: { id } })) {
+      const photo = data.getDataValue('photo');
+      if (photo) {
+        fs.unlink(`public/uploads/${photo}`, () => {});
+      }
       res.status(204).send({
         message: 'Deleted Successfully',
       });
