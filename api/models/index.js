@@ -24,20 +24,22 @@ db.likes = require('./like.model.js')(sequelize, Sequelize);
 db.posts = require('./post.model.js')(sequelize, Sequelize);
 db.comments = require('./comment.model.js')(sequelize, Sequelize);
 
-db.users.hasMany(db.comments, {
-  foreignKey: 'commentedBy',
-  allowNull: false,
-});
 db.users.hasMany(db.posts, {
-  allowNull: false,
-});
-db.users.hasMany(db.likes, {
-  foreignKey: 'likedBy',
-  allowNull: false,
+  as: 'posts',
 });
 
 db.posts.belongsTo(db.users);
+db.posts.hasMany(db.likes, {
+  as: 'likes',
+});
+db.posts.hasMany(db.comments, {
+  as: 'comments',
+});
+
+db.likes.belongsTo(db.users);
 db.likes.belongsTo(db.posts);
+
+db.comments.belongsTo(db.users);
 db.comments.belongsTo(db.posts);
 
 module.exports = db;

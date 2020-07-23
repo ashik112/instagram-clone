@@ -7,21 +7,18 @@ const { Op } = db.Sequelize;
 
 // Create and Save a new User
 exports.create = async (req, res) => {
-  // Validate request
   if (!req.body.username) {
     res.status(400).send({
       message: 'Username can not be empty!',
     });
     return;
   }
-  // Create a User
   const user = {
     username: req.body.username,
     password: req.body.password,
     name: req.body.name,
     email: req.body.email,
   };
-  // Save User in the database
   try {
     const data = await User.create(user);
     const response = { ...data };
@@ -67,7 +64,9 @@ exports.createAvatar = async (req, res) => {
     return;
   }
 
+  let transaction;
   try {
+    transaction = await db.sequelize.transaction();
     const data = await User.findByPk(userID);
     if (!data) {
       res.status(404).send({
@@ -77,24 +76,26 @@ exports.createAvatar = async (req, res) => {
       return;
     }
 
-    const { avatar } = data.dataValues;
-    await moveFile(source, destination);
     const update = await User.update({ avatar: filename }, { where: { id: userID } });
-
     if (update[0] === 1) {
+      await moveFile(source, destination);
       const updatedUser = await User.findByPk(userID);
+      const { avatar } = data.dataValues;
+      // remove previous avatar image
       if (avatar) {
         fs.unlink(`public/uploads/${avatar}`, () => {});
       }
       res.send(updatedUser);
     } else {
       fs.unlink(source, () => {});
+      if (transaction) await transaction.rollback();
       res.status(404).send({
         message: `Some error occurred while updating user=${userID}`,
       });
     }
   } catch (e) {
     fs.unlinkSync(source);
+    if (transaction) await transaction.rollback();
     res.status(500).send({
       message:
         e.message || 'Some error occurred while retrieving users.',

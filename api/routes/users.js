@@ -10,7 +10,6 @@ const storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, 'public/temp/');
   },
-
   // By default, multer removes file extensions so let's add them back
   filename(req, file, cb) {
     cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
@@ -18,11 +17,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage, fileFilter: helpers.imageFilter }).single('avatar');
-
-/* GET users listing. */
-/* router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-}); */
 
 // Create a new User
 router.post('/', users.create);

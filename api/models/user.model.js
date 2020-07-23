@@ -31,6 +31,10 @@ module.exports = (sequelize, Sequelize) => sequelize.define('user', {
     allowNull: true,
   },
 }, {
+  indexes: [
+    { unique: true, fields: ['username'] },
+    { unique: true, fields: ['email'] },
+  ],
   defaultScope: {
     attributes: { exclude: ['password'] },
   },
