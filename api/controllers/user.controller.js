@@ -1,16 +1,16 @@
 const moveFile = require('move-file');
 const fs = require('fs');
-const db = require("../models");
+const db = require('../models');
 
 const User = db.users;
-const Op = db.Sequelize.Op;
+const { Op } = db.Sequelize;
 
 // Create and Save a new User
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   // Validate request
   if (!req.body.username) {
     res.status(400).send({
-      message: "Username can not be empty!"
+      message: 'Username can not be empty!',
     });
     return;
   }
@@ -22,48 +22,46 @@ exports.create = (req, res) => {
     email: req.body.email,
   };
   // Save User in the database
-  User.create(user)
-  .then(data => {
-    delete data.dataValues.password
+  try {
+    const data = await User.create(user);
+    const response = { ...data };
+    delete response.dataValues.password;
     res.send(data);
-  })
-  .catch(err => {
-    console.log(err);
+  } catch (e) {
     res.status(500).send({
-      error: err,
+      error: 2,
       message:
-        err.message || "Some error occurred while creating the User."
+        e.message || 'Some error occurred while creating the User.',
     });
-  });
+  }
 };
 
 // Retrieve all Users/ find by username from the database
-exports.findAll = (req, res) => {
-  const username = req.query.username;
+exports.findAll = async (req, res) => {
+  const { username } = req.query;
   const condition = username ? { username: { [Op.like]: `%${username}%` } } : null;
-
-  User.findAll({ where: condition })
-  .then(data => {
+  try {
+    const data = await User.findAll({ where: condition });
     res.send(data);
-  })
-  .catch(err => {
+  } catch (e) {
     res.status(500).send({
+      error: e,
       message:
-        err.message || "Some error occurred while retrieving users."
+        e.message || 'Some error occurred while retrieving users.',
     });
-  });
+  }
 };
 
 // Find a single User with an id
 exports.createAvatar = async (req, res) => {
   const userID = req.body.user;
-  const filename = req.file.filename;
+  const { filename } = req.file;
   const destination = `public/uploads/${filename}`;
   const source = `public/temp/${filename}`;
   // Validate request
   if (!userID) {
     res.status(400).send({
-      message: "User can not be empty!",
+      message: 'User can not be empty!',
     });
     fs.unlinkSync(source);
     return;
@@ -71,46 +69,47 @@ exports.createAvatar = async (req, res) => {
 
   try {
     const data = await User.findByPk(userID);
-    if(!data) {
+    if (!data) {
       res.status(404).send({
-        message: "Error retrieving User with id=" + userID,
+        message: `Error retrieving User with id=${userID}`,
       });
       fs.unlinkSync(source);
-      return ;
+      return;
     }
 
     const { avatar } = data.dataValues;
     await moveFile(source, destination);
     const update = await User.update({ avatar: filename }, { where: { id: userID } });
 
-    if(update[0] >= 1) {
+    if (update[0] === 1) {
       const updatedUser = await User.findByPk(userID);
-      if(avatar) fs.unlink(`public/uploads/${avatar}`, () => {});
+      if (avatar) {
+        fs.unlink(`public/uploads/${avatar}`, () => {});
+      }
       res.send(updatedUser);
     } else {
       fs.unlink(source, () => {});
       res.status(404).send({
-        message: "Some error occurred while updating user=" + userID,
+        message: `Some error occurred while updating user=${userID}`,
       });
     }
-
   } catch (e) {
     fs.unlinkSync(source);
     res.status(500).send({
       message:
-        e.message || "Some error occurred while retrieving users."
+        e.message || 'Some error occurred while retrieving users.',
     });
   }
 };
 
 // Find a single User with an id
 exports.findOne = async (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
   try {
     const data = await User.findByPk(id);
-    if(!data) {
+    if (!data) {
       res.status(404).send({
-        message: "Error retrieving User with id=" + id,
+        message: `Error retrieving User with id=${id}`,
       });
       return;
     }
@@ -118,7 +117,7 @@ exports.findOne = async (req, res) => {
   } catch (e) {
     res.status(500).send({
       error: e,
-      message: "Error retrieving User with id=" + id,
+      message: `Error retrieving User with id=${id}`,
     });
   }
 };
