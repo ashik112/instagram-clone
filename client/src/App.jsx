@@ -11,12 +11,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.scss';
 import './shared/styles/styles.scss';
 
+// eslint-disable-next-line react/prop-types
 const App = ({ store, persistor }) => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <Router history={history}>
         <Switch>
-          <Route exact component={LoginPage} path="/" />
           <Route exact component={LoginPage} path="/login" />
           <LayoutWrapper />
         </Switch>
