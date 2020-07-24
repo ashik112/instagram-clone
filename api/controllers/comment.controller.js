@@ -1,16 +1,13 @@
 const db = require('../models');
 
-const Post = db.posts;
 const Comment = db.comments;
 
-// Give comment
+// * Add comment
 exports.create = async (req, res) => {
   let transaction;
   const { userId, content } = req.body;
   const { postId } = req.params;
   try {
-    // get transaction
-    // eslint-disable-next-line prefer-const
     transaction = await db.sequelize.transaction();
     const data = await Comment.create({
       userId: +userId,
@@ -18,7 +15,6 @@ exports.create = async (req, res) => {
       content,
     });
     data.dataValues.user = await data.getUser();
-    // commit
     await transaction.commit();
     res.send(data);
   } catch (e) {
@@ -31,14 +27,12 @@ exports.create = async (req, res) => {
   }
 };
 
-// Give comment
+// * Update comment
 exports.update = async (req, res) => {
   let transaction;
   const { content } = req.body;
   const { id } = req.params;
   try {
-    // get transaction
-    // eslint-disable-next-line prefer-const
     transaction = await db.sequelize.transaction();
     const data = await Comment.update({
       content,
@@ -48,7 +42,6 @@ exports.update = async (req, res) => {
       },
     });
     data.dataValues.user = await data.getUser();
-    // commit
     await transaction.commit();
     res.send(data);
   } catch (e) {
@@ -61,7 +54,7 @@ exports.update = async (req, res) => {
   }
 };
 
-// Remove comment
+// * Remove comment
 exports.delete = async (req, res) => {
   const { id } = req.params;
   try {
