@@ -1,3 +1,10 @@
+/**
+ * Only allow image file types
+ * @param req
+ * @param file
+ * @param cb
+ * @returns {*}
+ */
 // eslint-disable-next-line consistent-return
 const imageFilter = (req, file, cb) => {
   // Accept images only

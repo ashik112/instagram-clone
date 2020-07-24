@@ -1,4 +1,5 @@
 const moveFile = require('move-file');
+const bcrypt = require('bcrypt');
 const fs = require('fs');
 const db = require('../models');
 
@@ -6,7 +7,7 @@ const User = db.users;
 const Post = db.posts;
 const { Op } = db.Sequelize;
 
-// Create and Save a new User
+// * Create a new User
 exports.create = async (req, res) => {
   if (!req.body.username) {
     res.status(400).send({
@@ -34,7 +35,7 @@ exports.create = async (req, res) => {
   }
 };
 
-// Retrieve all Users/ find by name from the database
+// * Retrieve all Users/ find by name from the database
 exports.findAll = async (req, res) => {
   const { name } = req.query;
   const condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
@@ -50,7 +51,7 @@ exports.findAll = async (req, res) => {
   }
 };
 
-// Find a single User with an id
+// * Save user avatar
 exports.createAvatar = async (req, res) => {
   const userID = req.body.user;
   const { filename } = req.file;
@@ -73,6 +74,7 @@ exports.createAvatar = async (req, res) => {
       res.status(404).send({
         message: `Error retrieving User with id=${userID}`,
       });
+      // * remove temporary image
       fs.unlinkSync(source);
       return;
     }
@@ -82,12 +84,13 @@ exports.createAvatar = async (req, res) => {
       await moveFile(source, destination);
       const updatedUser = await User.findByPk(userID);
       const { avatar } = data.dataValues;
-      // remove previous avatar image
       if (avatar) {
+        // * remove previous avatar image
         fs.unlink(`public/uploads/${avatar}`, () => {});
       }
       res.send(updatedUser);
     } else {
+      // * remove temporary image
       fs.unlink(source, () => {});
       if (transaction) await transaction.rollback();
       res.status(404).send({
@@ -95,6 +98,7 @@ exports.createAvatar = async (req, res) => {
       });
     }
   } catch (e) {
+    // * remove temporary image
     fs.unlinkSync(source);
     if (transaction) await transaction.rollback();
     res.status(500).send({
@@ -104,7 +108,7 @@ exports.createAvatar = async (req, res) => {
   }
 };
 
-// Find a single User with an id
+// * Find a single User with an id
 exports.findOne = async (req, res) => {
   const { id } = req.params;
   try {
@@ -124,7 +128,7 @@ exports.findOne = async (req, res) => {
   }
 };
 
-// Find a single User with an id
+// * Find a single User by username
 exports.findByUsername = async (req, res) => {
   const { username } = req.params;
   try {
@@ -148,7 +152,7 @@ exports.findByUsername = async (req, res) => {
   }
 };
 
-// Update a User by the id in the request
+// * Update User
 exports.update = async (req, res) => {
   const { id } = req.params;
   try {
@@ -168,12 +172,35 @@ exports.update = async (req, res) => {
     res.status(500).send({
       error: e,
       message:
-        e.message || `Some error occurred while updating the post=${id}`,
+        e.message || `Some error occurred while updating the user=${id}`,
     });
   }
 };
 
-// Delete a User with the specified id in the request
+// * Change user password
+exports.changePassword = async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+  try {
+    const data = await User.update({
+      password: bcrypt.hashSync(password, bcrypt.genSaltSync()),
+    }, {
+      where: { id },
+    });
+    if (data[0] > 0) {
+      const user = await User.findByPk(id);
+      res.send(user);
+    }
+  } catch (e) {
+    res.status(500).send({
+      error: e,
+      message:
+        e.message || 'Some error occurred while changing password',
+    });
+  }
+};
+
+// * Delete a User
 exports.delete = async (req, res) => {
   const { id } = req.params;
   try {

@@ -3,7 +3,7 @@ const db = require('../models');
 const Post = db.posts;
 const Like = db.likes;
 
-// Give like
+// * Add like to a post
 exports.create = async (req, res) => {
   let transaction;
   const { userId } = req.body;
@@ -30,7 +30,7 @@ exports.create = async (req, res) => {
   }
 };
 
-// Remove like
+// * Remove like
 exports.delete = async (req, res) => {
   const { postId } = req.params;
   try {

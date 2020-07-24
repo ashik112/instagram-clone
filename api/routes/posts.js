@@ -8,6 +8,10 @@ const comments = require('../controllers/comment.controller');
 
 const router = express.Router();
 
+/**
+ * Keep original file extension
+ * @type {DiskStorage}
+ */
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, 'public/temp/');
@@ -18,25 +22,31 @@ const storage = multer.diskStorage({
   },
 });
 
+// * Upload post photo
 const upload = multer({ storage, fileFilter: helpers.imageFilter }).single('photo');
 
+// * Create a post
 router.post('/', upload, posts.create);
 
-// Retrieve all Users
+// * Get all posts
 router.get('/', posts.findAll);
 
-// Retrieve single Post
+// * Get a single post
 router.get('/:id', posts.findOne);
 
-// Retrieve single Post
+// * Update post
 router.patch('/:id', posts.update);
 
-// Retrieve single User
+// * Remove post
 router.delete('/:id', posts.delete);
 
+// * Add like on post
 router.post('/:postId/like', likes.create);
+
+// * Remove like on post
 router.delete('/:postId/dislike', likes.delete);
 
+// * Add a comment on post
 router.post('/:postId/comment', comments.create);
 
 module.exports = router;
