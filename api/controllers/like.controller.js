@@ -1,5 +1,6 @@
 const db = require('../models');
 
+const { Op } = db.Sequelize;
 const Post = db.posts;
 const Like = db.likes;
 
@@ -33,8 +34,16 @@ exports.create = async (req, res) => {
 // * Remove like
 exports.delete = async (req, res) => {
   const { postId } = req.params;
+  const { userId } = req.body;
   try {
-    const data = await Post.destroy({ where: { postId } });
+    const data = await Like.destroy({
+      where: {
+        [Op.and]: [
+          { postId: +postId },
+          { userId },
+        ],
+      },
+    });
     if (data) {
       res.status(204).send({
         message: 'Like removed Successfully',
@@ -42,7 +51,7 @@ exports.delete = async (req, res) => {
     } else {
       res.status(404).send({
         message:
-          `No like found for post=${postId}`,
+          `No like found for post=${postId}, user=${userId}`,
       });
     }
   } catch (e) {

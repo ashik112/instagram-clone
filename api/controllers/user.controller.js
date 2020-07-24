@@ -53,12 +53,12 @@ exports.findAll = async (req, res) => {
 
 // * Save user avatar
 exports.createAvatar = async (req, res) => {
-  const userID = req.body.user;
+  const userId = req.body.user;
   const { filename } = req.file;
   const destination = `public/uploads/${filename}`;
   const source = `public/temp/${filename}`;
   // Validate request
-  if (!userID) {
+  if (!userId) {
     res.status(400).send({
       message: 'User can not be empty!',
     });
@@ -69,20 +69,20 @@ exports.createAvatar = async (req, res) => {
   let transaction;
   try {
     transaction = await db.sequelize.transaction();
-    const data = await User.findByPk(userID);
+    const data = await User.findByPk(userId);
     if (!data) {
       res.status(404).send({
-        message: `Error retrieving User with id=${userID}`,
+        message: `Error retrieving User with id=${userId}`,
       });
       // * remove temporary image
       fs.unlinkSync(source);
       return;
     }
 
-    const update = await User.update({ avatar: filename }, { where: { id: userID } });
+    const update = await User.update({ avatar: filename }, { where: { id: userId } });
     if (update[0] === 1) {
       await moveFile(source, destination);
-      const updatedUser = await User.findByPk(userID);
+      const updatedUser = await User.findByPk(userId);
       const { avatar } = data.dataValues;
       if (avatar) {
         // * remove previous avatar image
@@ -94,7 +94,7 @@ exports.createAvatar = async (req, res) => {
       fs.unlink(source, () => {});
       if (transaction) await transaction.rollback();
       res.status(404).send({
-        message: `Some error occurred while updating user=${userID}`,
+        message: `Some error occurred while updating user=${userId}`,
       });
     }
   } catch (e) {
