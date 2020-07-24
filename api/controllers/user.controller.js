@@ -53,7 +53,7 @@ exports.findAll = async (req, res) => {
 
 // * Save user avatar
 exports.createAvatar = async (req, res) => {
-  const userId = req.body.user;
+  const { userId } = req.body;
   const { filename } = req.file;
   const destination = `public/uploads/${filename}`;
   const source = `public/temp/${filename}`;
