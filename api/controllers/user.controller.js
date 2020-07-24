@@ -1,4 +1,5 @@
 const moveFile = require('move-file');
+const bcrypt = require('bcrypt');
 const fs = require('fs');
 const db = require('../models');
 
@@ -168,7 +169,30 @@ exports.update = async (req, res) => {
     res.status(500).send({
       error: e,
       message:
-        e.message || `Some error occurred while updating the post=${id}`,
+        e.message || `Some error occurred while updating the user=${id}`,
+    });
+  }
+};
+
+// Update a User by the id in the request
+exports.changePassword = async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+  try {
+    const data = await User.update({
+      password: bcrypt.hashSync(password, bcrypt.genSaltSync()),
+    }, {
+      where: { id },
+    });
+    if (data[0] > 0) {
+      const user = await User.findByPk(id);
+      res.send(user);
+    }
+  } catch (e) {
+    res.status(500).send({
+      error: e,
+      message:
+        e.message || 'Some error occurred while changing password',
     });
   }
 };

@@ -53,3 +53,41 @@ exports.login = async (req, res) => {
     });
   }
 };
+
+// Register new User
+exports.register = async (req, res) => {
+  const {
+    username, email, name, password,
+  } = req.body;
+  if (!username || !email || !name || !password) {
+    res.status(400).send({
+      message: 'Fields can not be empty!',
+    });
+    return;
+  }
+  const user = {
+    username,
+    password,
+    name,
+    email,
+  };
+  try {
+    const newUser = await User.create(user);
+    delete newUser.dataValues.password;
+    const token = jwt.sign({
+      userId: newUser.getDataValue('id'),
+    }, auth.secret, {
+      expiresIn: '24h', // expires in 24 hours
+    });
+    res.send({
+      user: newUser,
+      token,
+    });
+  } catch (e) {
+    res.status(500).send({
+      error: e,
+      message:
+        e.message || 'Some error occurred while creating the User.',
+    });
+  }
+};
