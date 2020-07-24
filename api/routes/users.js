@@ -36,6 +36,9 @@ router.delete('/:id', users.delete);
 // Update single User
 router.patch('/:id', users.update);
 
+// Change Password
+router.patch('/:id/change-password', users.changePassword);
+
 // Upload User avatar
 router.post('/upload-avatar', upload, users.createAvatar);
 
