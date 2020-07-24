@@ -5,7 +5,7 @@ const auth = require('../config/auth.config');
 const { Op } = db.Sequelize;
 const User = db.users;
 
-// Log in User
+// * Login User
 exports.login = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -54,7 +54,7 @@ exports.login = async (req, res) => {
   }
 };
 
-// Register new User
+// * Register User
 exports.register = async (req, res) => {
   const {
     username, email, name, password,

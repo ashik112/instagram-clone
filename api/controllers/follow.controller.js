@@ -3,20 +3,16 @@ const db = require('../models');
 const Follow = db.follows;
 const { Op } = db.Sequelize;
 
-// Give like
+// * Follow user
 exports.follow = async (req, res) => {
   let transaction;
   const { followingId, userId } = req.body;
   try {
-    // get transaction
-    // eslint-disable-next-line prefer-const
     transaction = await db.sequelize.transaction();
     const data = await Follow.create({
       followerId: userId,
       userId: followingId,
     });
-    // data.dataValues.following = await data.getFollowing();
-    // commit
     await transaction.commit();
     res.send(data);
   } catch (e) {
@@ -29,7 +25,7 @@ exports.follow = async (req, res) => {
   }
 };
 
-// Remove like
+// * Unfollow user
 exports.unfollow = async (req, res) => {
   const { userId, followingId } = req.body;
   try {

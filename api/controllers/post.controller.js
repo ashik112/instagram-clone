@@ -6,7 +6,7 @@ const User = db.users;
 const Post = db.posts;
 const Like = db.likes;
 
-// Create a new post
+// * Add a new post
 exports.create = async (req, res) => {
   // Validate Request
   if (!req.body.userId) {
@@ -46,7 +46,7 @@ exports.create = async (req, res) => {
   }
 };
 
-// Update a post
+// * Update a post
 exports.update = async (req, res) => {
   const { id } = req.params;
   try {
@@ -68,7 +68,7 @@ exports.update = async (req, res) => {
   }
 };
 
-// Get all Posts
+// * Get all Posts with users
 exports.findAll = async (req, res) => {
   try {
     const data = await Post.findAll({
@@ -90,7 +90,7 @@ exports.findAll = async (req, res) => {
   }
 };
 
-// Get a Post
+// * Get a Post
 exports.findOne = async (req, res) => {
   const { id } = req.params;
   try {
@@ -121,7 +121,7 @@ exports.findOne = async (req, res) => {
   }
 };
 
-// Delete a post
+// * Delete a post
 exports.delete = async (req, res) => {
   const { id } = req.params;
   try {
