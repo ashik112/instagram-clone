@@ -39,7 +39,7 @@ exports.create = async (req, res) => {
     fs.unlink(destination, () => {});
     if (transaction) await transaction.rollback();
     res.status(500).send({
-      error: 2,
+      error: e,
       message:
         e.message || 'Some error occurred while creating the Post.',
     });
@@ -61,7 +61,7 @@ exports.update = async (req, res) => {
     }
   } catch (e) {
     res.status(500).send({
-      error: 2,
+      error: e,
       message:
         e.message || `Some error occurred while updating the post=${id}`,
     });

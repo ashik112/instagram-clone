@@ -26,7 +26,7 @@ exports.create = async (req, res) => {
     res.send(data);
   } catch (e) {
     res.status(500).send({
-      error: 2,
+      error: e,
       message:
         e.message || 'Some error occurred while creating the User.',
     });
@@ -165,7 +165,7 @@ exports.update = async (req, res) => {
     }
   } catch (e) {
     res.status(500).send({
-      error: 2,
+      error: e,
       message:
         e.message || `Some error occurred while updating the post=${id}`,
     });

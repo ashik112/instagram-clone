@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
+const commentsRouter = require('./routes/comments');
 const db = require('./models');
 
 const app = express();
@@ -30,6 +31,7 @@ app.use('/', indexRouter);
 app.use('/ftp', express.static('public'), serveIndex('public', { icons: true }));
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
+app.use('/comments', commentsRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -50,7 +52,7 @@ app.use((err, req, res, next) => {
 
 /// db.sequelize.sync(); // enable in production mode
 // create all the defined tables in the specified database. ! { force: true } will drop tables
-db.sequelize.sync({ force: false, alter: true, drop: false }).then(() => {
+db.sequelize.sync({ force: true, alter: true, drop: true }).then(() => {
   console.log('Re-Sync Database.');
 }).catch((error) => {
   console.log('ERROR: ', error);
