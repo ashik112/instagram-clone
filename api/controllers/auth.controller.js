@@ -30,7 +30,7 @@ exports.login = async (req, res) => {
   };
   try {
     const user = await User.unscoped().findOne({ where: condition });
-    if (await user.validPassword(password)) {
+    if (user && await user.validPassword(password)) {
       delete user.dataValues.password;
       const token = jwt.sign({
         userId: user.getDataValue('id'),
