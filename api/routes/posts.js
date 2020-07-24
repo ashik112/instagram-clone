@@ -4,6 +4,7 @@ const path = require('path');
 const helpers = require('../helpers');
 const posts = require('../controllers/post.controller');
 const likes = require('../controllers/like.controller');
+const comments = require('../controllers/comment.controller');
 
 const router = express.Router();
 
@@ -33,8 +34,9 @@ router.patch('/:id', posts.update);
 // Retrieve single User
 router.delete('/:id', posts.delete);
 
-// Retrieve single User
 router.post('/:postId/like', likes.create);
-router.delete('/:postId/dislike', likes.remove);
+router.delete('/:postId/dislike', likes.delete);
+
+router.post('/:postId/comment', comments.create);
 
 module.exports = router;

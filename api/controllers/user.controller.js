@@ -3,6 +3,7 @@ const fs = require('fs');
 const db = require('../models');
 
 const User = db.users;
+const Post = db.posts;
 const { Op } = db.Sequelize;
 
 // Create and Save a new User
@@ -26,7 +27,7 @@ exports.create = async (req, res) => {
     res.send(data);
   } catch (e) {
     res.status(500).send({
-      error: 2,
+      error: e,
       message:
         e.message || 'Some error occurred while creating the User.',
     });
@@ -165,7 +166,7 @@ exports.update = async (req, res) => {
     }
   } catch (e) {
     res.status(500).send({
-      error: 2,
+      error: e,
       message:
         e.message || `Some error occurred while updating the post=${id}`,
     });
@@ -176,12 +177,26 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
   const { id } = req.params;
   try {
-    const data = await User.findByPk(id);
+    const data = await User.findByPk(id, {
+      include: [{
+        model: Post,
+        as: 'posts',
+      }],
+    });
     if (await User.destroy({ where: { id } })) {
+      // remove avatar from storage
       const avatar = data.getDataValue('avatar');
       if (avatar) {
         fs.unlink(`public/uploads/${avatar}`, () => {});
       }
+
+      // remove post photos from storage
+      const { posts } = data.dataValues;
+      posts.forEach((item) => {
+        const { photo } = item.dataValues;
+        fs.unlink(`public/uploads/${photo}`, () => {});
+      });
+
       res.status(204).send({
         message: 'Deleted Successfully',
       });

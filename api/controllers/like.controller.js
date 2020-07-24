@@ -23,7 +23,7 @@ exports.create = async (req, res) => {
   } catch (e) {
     if (transaction) await transaction.rollback();
     res.status(500).send({
-      error: 2,
+      error: e,
       message:
         e.message || 'Some error occurred while liking the Post.',
     });
@@ -31,7 +31,7 @@ exports.create = async (req, res) => {
 };
 
 // Remove like
-exports.remove = async (req, res) => {
+exports.delete = async (req, res) => {
   const { postId } = req.params;
   try {
     const data = await Post.destroy({ where: { postId } });
