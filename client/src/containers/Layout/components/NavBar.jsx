@@ -16,6 +16,7 @@ const NavBar = ({ authReducer }) => {
         <>
           <Row className="Nav-menus">
             <Col md={4} sm={4} lg={4} xs={4}>
+              {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role */}
               <img role="button" src={logo} alt="Instagram" />
             </Col>
             <Col className="text-center" md={4} sm={4} lg={4} xs={4}>

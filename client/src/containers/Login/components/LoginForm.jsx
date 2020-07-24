@@ -1,6 +1,5 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable react/prop-types */
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Button, Form, InputGroup, Spinner, FormGroup, Input, InputGroupAddon,
 } from 'reactstrap';

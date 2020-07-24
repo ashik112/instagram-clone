@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Container,
   Row,
@@ -23,7 +23,7 @@ class LoginPage extends Component {
     const { loading, error } = authReducer;
     return (
       <Container fluid className="text-center Login-container" style={{ height: '100vh' }}>
-        {/*<div className="background-image" />*/}
+        {/* <div className="background-image" /> */}
         <Row style={{ blur: '0 !important' }} className="h-100 justify-content-center align-items-center content">
           <Col md={4}>
             <Card className="Login-card" border="warning">
@@ -34,7 +34,7 @@ class LoginPage extends Component {
                 <LoginForm loading={loading} onLogIn={onLogIn} />
                 { error && (
                   <div className="text-center">
-                    <hr/>
+                    <hr />
                     <span className="text-danger small">Sorry, your password was incorrect. Please double-check your password.</span>
                   </div>
                 )}

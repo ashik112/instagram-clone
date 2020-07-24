@@ -1,3 +1,5 @@
+// eslint-disable-next-line max-len
+/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role,react/jsx-one-expression-per-line */
 import React from 'react';
 import { MdGridOn } from 'react-icons/md';
 import { Container, Row, Col } from 'reactstrap';
@@ -6,7 +8,9 @@ import './Posts.scss';
 const Posts = () => (
   <div className="mt-5 text-center">
     <hr />
-    <span className="small"><MdGridOn size={16} /> POSTS</span>
+    <span className="small">
+      <MdGridOn size={16} /> POSTS
+    </span>
     <Container className="mt-3">
       <Row xs={3} md={3}>
         <Col className="mb-4">

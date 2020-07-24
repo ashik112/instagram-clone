@@ -18,7 +18,7 @@ const ProfilePage = (props) => {
         </Col>
       </Row>
     </>
-  )
+  );
 };
 
 export default ProfilePage;
