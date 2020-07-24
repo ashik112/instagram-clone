@@ -3,6 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const helpers = require('../helpers');
 const users = require('../controllers/user.controller');
+const follows = require('../controllers/follow.controller');
 
 const router = express.Router();
 
@@ -41,5 +42,11 @@ router.patch('/:id/change-password', users.changePassword);
 
 // Upload User avatar
 router.post('/upload-avatar', upload, users.createAvatar);
+
+// Follow another user
+router.post('/follow', follows.follow);
+
+// Unfollow another user
+router.post('/unfollow', follows.unfollow);
 
 module.exports = router;

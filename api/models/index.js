@@ -19,14 +19,27 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.users = require('./user.model.js')(sequelize, Sequelize);
-db.likes = require('./like.model.js')(sequelize, Sequelize);
-db.posts = require('./post.model.js')(sequelize, Sequelize);
-db.comments = require('./comment.model.js')(sequelize, Sequelize);
+db.users = require('./user.model')(sequelize, Sequelize);
+db.likes = require('./like.model')(sequelize, Sequelize);
+db.posts = require('./post.model')(sequelize, Sequelize);
+db.comments = require('./comment.model')(sequelize, Sequelize);
+db.follows = require('./follow.model')(sequelize, Sequelize);
 
 db.users.hasMany(db.posts, {
   as: 'posts',
 });
+
+db.users.belongsToMany(db.users, {
+  foreignKey: 'userId',
+  as: 'followers',
+  through: db.follows,
+});
+db.users.belongsToMany(db.users, {
+  foreignKey: 'followerId',
+  as: 'following',
+  through: db.follows,
+});
+
 db.posts.belongsTo(db.users, {
   onDelete: 'CASCADE',
   foreignKey: { allowNull: false },
