@@ -1,6 +1,6 @@
 // eslint-disable-next-line max-len
 /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role,react/jsx-one-expression-per-line */
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdGridOn } from 'react-icons/md';
 import { Container, Row, Col } from 'reactstrap';
 import './Posts.scss';
@@ -29,7 +29,7 @@ const Posts = ({ user }) => {
           {
             posts.map((post) => (
               <Col key={post.id} className="mb-4">
-                <div className="Posts-img-container">
+                <div className="Posts-img-container" role="button">
                   <img
                     role="button"
                     className="Posts-img"
