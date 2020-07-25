@@ -1,14 +1,18 @@
 import React from 'react';
-import { Row, Col, Button, Input } from 'reactstrap';
+import {
+  Row, Col, Button, Input, InputGroup, InputGroupAddon, InputGroupText,
+} from 'reactstrap';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './NavBar.scss';
+import { FiSearch } from 'react-icons/fi';
 import logo from '../../../assets/logo.png';
 import history from '../../../utils/history';
 import historyRoutes from '../../../routing/historyRoutes';
-import { FiSearch } from 'react-icons/fi';
-import { InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 
+// eslint-disable-next-line react/prop-types
 const NavBar = ({ authReducer }) => {
+  // eslint-disable-next-line react/prop-types
   const { token } = authReducer;
   return (
     <>
@@ -16,7 +20,9 @@ const NavBar = ({ authReducer }) => {
         <>
           <Row className="Nav-menus">
             <Col md={4} sm={4} lg={4} xs={4}>
-              <img role="button" src={logo} alt="Instagram" />
+              <Link to="/">
+                <img src={logo} alt="Instagram" />
+              </Link>
             </Col>
             <Col className="text-center" md={4} sm={4} lg={4} xs={4}>
               <InputGroup size="sm">
@@ -44,7 +50,7 @@ const NavBar = ({ authReducer }) => {
       </nav>
     </>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   authReducer: state.authReducer,

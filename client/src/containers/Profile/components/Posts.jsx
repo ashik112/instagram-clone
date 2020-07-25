@@ -1,41 +1,55 @@
-import React from 'react';
+// eslint-disable-next-line max-len
+/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role,react/jsx-one-expression-per-line */
+import React, { useEffect, useState } from 'react';
 import { MdGridOn } from 'react-icons/md';
 import { Container, Row, Col } from 'reactstrap';
 import './Posts.scss';
+import { BsFillHeartFill, BsFillChatFill } from 'react-icons/bs';
+import axios from '../../../utils/axios';
+import { apiUrl } from '../../../constants';
 
-const Posts = () => (
-  <div className="mt-5 text-center">
-    <hr />
-    <span className="small"><MdGridOn size={16} /> POSTS</span>
-    <Container className="mt-3">
-      <Row xs={3} md={3}>
-        <Col className="mb-4">
-          <img
-            role="button"
-            className="Posts-img"
-            src="https://avatars3.githubusercontent.com/u/9448239?s=460&u=1bef28fa08aa10787dd00654fc304442ebb92ddc&v=4"
-            alt="N/A"
-          />
-        </Col>
-        <Col className="mb-4">
-          <img
-            role="button"
-            className="Posts-img"
-            alt="N/A"
-            src="https://instagram.fdac22-1.fna.fbcdn.net/v/t51.2885-19/s150x150/110007780_280857393183090_1023003285823742901_n.jpg?_nc_ht=instagram.fdac22-1.fna.fbcdn.net&_nc_ohc=HPY-HB3pdbMAX-G7zXh&oh=9b62627dab018d399c24a6508b6947ba&oe=5F41702B"
-          />
-        </Col>
-        <Col role="button" className="mb-4">
-          <img
-            role="button"
-            className="Posts-img"
-            alt="N/A"
-            src="https://avatars3.githubusercontent.com/u/9448239?s=460&u=1bef28fa08aa10787dd00654fc304442ebb92ddc&v=4"
-          />
-        </Col>
-      </Row>
-    </Container>
-  </div>
-);
+// eslint-disable-next-line react/prop-types
+const Posts = ({ user }) => {
+  // eslint-disable-next-line react/prop-types
+  const { id } = user;
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    axios.get(`${apiUrl}/users/${id}/posts`).then((res) => {
+      setPosts([...res.data]);
+    });
+  }, [id]);
+  return (
+    <div className="mt-5 text-center">
+      <span className="small text-grey align-middle">
+        <MdGridOn size={12} /> POSTS
+      </span>
+      <hr />
+      <Container className="mt-3">
+        <Row xs={3} md={3}>
+          {
+            posts.map((post) => (
+              <Col key={post.id} className="mb-4">
+                <div className="Posts-img-container" role="button">
+                  <img
+                    role="button"
+                    className="Posts-img"
+                    src={`${apiUrl}/ftp/uploads/${post.photo}`}
+                    alt="N/A"
+                  />
+                  <div className="overlay">
+                    <div className="Posts-img-text d-flex align-items-center align-middle">
+                      <span className="mr-3"><BsFillHeartFill /> {post.comments && post.comments.length}</span>
+                      <span className="ml-3"><BsFillChatFill /> {post.likes && post.likes.length}</span>
+                    </div>
+                  </div>
+                </div>
+              </Col>
+            ))
+          }
+        </Row>
+      </Container>
+    </div>
+  );
+};
 
 export default Posts;

@@ -1,7 +1,7 @@
 .Profile-avatar {
   vertical-align: middle;
-  width: 100%;
+  height: 100% !important;
   max-width: 142px;
-  height: auto;
+  max-height: 142px !important;
   border-radius: 50%;
 }

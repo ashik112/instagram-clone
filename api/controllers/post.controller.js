@@ -5,6 +5,7 @@ const db = require('../models');
 const User = db.users;
 const Post = db.posts;
 const Like = db.likes;
+const Comment = db.comments;
 
 // * Add a new post
 exports.create = async (req, res) => {
@@ -77,6 +78,40 @@ exports.findAll = async (req, res) => {
       }, {
         model: Like,
         as: 'likes',
+        include: [User],
+      }, {
+        model: Comment,
+        as: 'comments',
+        include: [User],
+      }],
+    });
+    res.send(data);
+  } catch (e) {
+    res.status(500).send({
+      error: e,
+      message:
+        e.message || 'Some error occurred while retrieving posts.',
+    });
+  }
+};
+
+// * Get all Posts with users
+exports.findAllByUser = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const data = await Post.findAll({
+      where: {
+        userId: +userId,
+      },
+      include: [{
+        model: User,
+      }, {
+        model: Like,
+        as: 'likes',
+        include: [User],
+      }, {
+        model: Comment,
+        as: 'comments',
         include: [User],
       }],
     });

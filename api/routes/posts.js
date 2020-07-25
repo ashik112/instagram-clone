@@ -44,7 +44,7 @@ router.delete('/:id', posts.delete);
 router.post('/:postId/like', likes.create);
 
 // * Remove like on post
-router.delete('/:postId/dislike', likes.delete);
+router.post('/:postId/dislike', likes.delete);
 
 // * Add a comment on post
 router.post('/:postId/comment', comments.create);

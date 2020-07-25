@@ -1,8 +1,15 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { Row, Col, Container } from 'reactstrap';
 import './ProfileHeader.scss';
+import { apiUrl } from '../../../constants';
 
-const ProfileHeader = () => {
+// eslint-disable-next-line react/prop-types
+const ProfileHeader = ({ user }) => {
+  const {
+    // eslint-disable-next-line react/prop-types,max-len
+    name, username, description, avatar, statistics: { totalPosts, totalFollowers, totalFollowings },
+  } = user;
   return (
     <Container>
       <Row>
@@ -10,7 +17,7 @@ const ProfileHeader = () => {
           <img
             alt="N/A"
             className="Profile-avatar"
-            src="https://avatars3.githubusercontent.com/u/9448239?s=460&u=1bef28fa08aa10787dd00654fc304442ebb92ddc&v=4"
+            src={`${apiUrl}/ftp/uploads/${avatar}`}
           />
         </Col>
         <Col sm={8} md={8}>
@@ -18,34 +25,43 @@ const ProfileHeader = () => {
             <Row>
               <Col md={5}>
                 <h4 className="text-left align-self-center">
-                  ashekur.rahman.khan
+                  {username}
                 </h4>
               </Col>
-              {/*<Col md={4} className="text-left align-self-center">
+              {/* <Col md={4} className="text-left align-self-center">
                 <button className="mr-2">Edit Profile</button>
                 <GrSettingsOption size={24} />
-              </Col>*/}
+              </Col> */}
             </Row>
 
             <Row className="pt-2 text-left">
               <Col>
-                <span className="pr-2"><b>6</b> posts</span>
-                <span className="p-2"><b>5</b> likes</span>
-                <span className="p-2"><b>6</b> followers</span>
+                <span className="pr-2">
+                  <b>{totalPosts}</b> posts
+                </span>
+                <span className="p-2">
+                  <b>{totalFollowers}</b> followers
+                </span>
+                <span className="p-2">
+                  <b>{totalFollowings}</b> following
+                </span>
               </Col>
             </Row>
             <Row className="pt-2 text-left">
-              <Col><b>Ashekur Rahman Khan</b></Col>
+              <Col><b>{name}</b></Col>
             </Row>
 
             <Row className="pt-2 text-left">
-              <Col>The secret of life, though, is to fall seven times and to get up eight times. <span role="img" aria-label="glass">👓</span></Col>
+              <Col>
+                {description}
+                {/* <span role="img" aria-label="glass">👓</span> */}
+              </Col>
             </Row>
           </Container>
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
 export default ProfileHeader;
