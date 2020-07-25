@@ -7,7 +7,7 @@ import { apiUrl } from '../../../constants';
 // eslint-disable-next-line react/prop-types
 const ProfileHeader = ({ user }) => {
   const {
-    // eslint-disable-next-line react/prop-types
+    // eslint-disable-next-line react/prop-types,max-len
     name, username, description, avatar, statistics: { totalPosts, totalFollowers, totalFollowings },
   } = user;
   return (

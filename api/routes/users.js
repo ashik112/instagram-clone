@@ -4,6 +4,7 @@ const path = require('path');
 const helpers = require('../helpers');
 const users = require('../controllers/user.controller');
 const follows = require('../controllers/follow.controller');
+const posts = require('../controllers/post.controller');
 
 const router = express.Router();
 
@@ -53,5 +54,8 @@ router.post('/follow', follows.follow);
 
 // * Unfollow another user
 router.post('/unfollow', follows.unfollow);
+
+// * Get all user posts
+router.get('/:userId/posts', posts.findAllByUser);
 
 module.exports = router;

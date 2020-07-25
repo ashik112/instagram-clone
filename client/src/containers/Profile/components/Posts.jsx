@@ -19,10 +19,10 @@ const Posts = ({ user }) => {
   }, [id]);
   return (
     <div className="mt-5 text-center">
-      <hr />
-      <span className="small">
-        <MdGridOn size={16} /> POSTS
+      <span className="small text-grey align-middle">
+        <MdGridOn size={12} /> Posts
       </span>
+      <hr />
       <Container className="mt-3">
         <Row xs={3} md={3}>
           {

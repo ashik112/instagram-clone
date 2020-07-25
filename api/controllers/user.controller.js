@@ -5,7 +5,44 @@ const db = require('../models');
 
 const User = db.users;
 const Post = db.posts;
+const Follow = db.follows;
 const { Op } = db.Sequelize;
+
+async function getStatistics(userId) {
+  const statistics = {
+    totalFollowers: 0,
+    totalFollowings: 0,
+    totalPosts: 0,
+  };
+  try {
+    statistics.totalPosts = await Post.count({
+      where: {
+        userId,
+      },
+    });
+  } catch (e) {
+    // handle error
+  }
+  try {
+    statistics.totalFollowings = await Follow.count({
+      where: {
+        followerId: userId,
+      },
+    });
+  } catch (e) {
+    // handle error
+  }
+  try {
+    statistics.totalFollowers = await Follow.count({
+      where: {
+        userId,
+      },
+    });
+  } catch (e) {
+    // handle error
+  }
+  return statistics;
+}
 
 // * Create a new User
 exports.create = async (req, res) => {
@@ -143,6 +180,7 @@ exports.findByUsername = async (req, res) => {
       });
       return;
     }
+    data.dataValues.statistics = await getStatistics(data.id);
     res.send(data);
   } catch (e) {
     res.status(500).send({
