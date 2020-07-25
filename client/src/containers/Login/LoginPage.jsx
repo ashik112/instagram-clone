@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-len
 /* eslint-disable react/prop-types,jsx-a11y/no-noninteractive-element-to-interactive-role,jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
 import {
