@@ -6,7 +6,6 @@
 .modal-dialog {
   display: flex !important;
   align-items: center !important;
-  // width: 100%;
   min-width: 90%;
   margin: 0 auto;
 }
@@ -33,17 +32,43 @@
   position: relative;
   width: 100%;
   height: 100%;
-  max-width: 100%;
   overflow: hidden;
+  @media screen and (max-width: 330px) {
+    max-width: 200px;
+    min-width: 200px;
+    min-height: 200px;
+    max-height: 200px;
+  }
+  @media screen and (min-width: 330px) {
+    max-width: 300px;
+    min-width: 300px;
+    min-height: 300px;
+    max-height: 300px;
+  }
+  @media screen and (min-width: 499px) {
+    max-width: 260px;
+    min-width: 260px;
+    min-height: 260px;
+    max-height: 260px;
+  }
+  @media screen and (min-width: 770px) {
+    max-width: 230px;
+    min-width: 230px;
+    min-height: 230px;
+    max-height: 230px;
+  }
+  @media screen and (min-width: 1000px) {
+    max-width: 300px;
+    min-width: 300px;
+    min-height: 300px;
+    max-height: 300px;
+  }
 
 }
 
 .Posts-img {
   width: 100%;
   height: 100%;
-  max-width: 300px;
-  min-height: 300px;
-  max-height: 300px;
   overflow: hidden;
   object-fit: cover;
   object-position: 60% center;
@@ -57,12 +82,14 @@
   right: 0;
   opacity: 0;
   transition: .5s ease;
+  background-color: rgba(78, 77, 77, 0.46);
   width: 100%;
-  max-width: 300px;
   height: 100%;
   min-height: 300px;
   max-height: 300px;
-  background-color: rgba(78, 77, 77, 0.46);
+  overflow: hidden;
+  object-fit: cover;
+  object-position: 60% center;
 }
 
 
@@ -86,32 +113,5 @@
   transform: translate(-50%, -50%);
   text-align: center;
 }
-
-/*.container {
-  max-width: 95rem;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -1rem -1rem;
-  padding-bottom: 3rem;
-}
-
-.gallery-item {
-  position: relative;
-  flex: 1 0 22rem;
-  margin: 1rem;
-  color: #fff;
-  cursor: pointer;
-}*/
-
-/*.gallery-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}*/
 
 

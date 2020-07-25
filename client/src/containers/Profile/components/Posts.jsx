@@ -44,14 +44,14 @@ const Posts = ({ user }) => {
         <MdGridOn size={12} /> POSTS
       </span>
       <hr />
-      <Container className="mt-3">
-        <Row xs={1} sm={2} md={3}>
+      <Container className="mt-3 p-0">
+        <Row xs={1} sm={2} md={3} lg={3}>
           {
             posts.map((post, index) => (
               <Col key={post.id} className="mb-4">
                 {/* eslint-disable-next-line max-len */}
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus */}
-                <div onClick={() => onClickPost(post, index)} className="gallery Posts-img-container" role="button">
+                <div onClick={() => onClickPost(post, index)} className="Posts-img-container" role="button">
                   <img
                     role="button"
                     className="Posts-img"
