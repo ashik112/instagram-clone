@@ -15,7 +15,7 @@ const ProfileHeader = ({ user }) => {
       <Row>
         <Col sm={3} md={3} className="text-center">
           <img
-            alt="N/A"
+            alt=""
             className="Profile-avatar"
             src={`${apiUrl}/ftp/uploads/${avatar}`}
           />

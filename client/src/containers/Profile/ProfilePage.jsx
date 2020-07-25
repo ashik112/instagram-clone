@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import ProfileHeader from './components/ProfileHeader';
-import Posts from './components/Posts';
+import Posts from '../Gallery/Posts';
 import axios from '../../utils/axios';
 import { apiUrl } from '../../constants';
 import NoMatch from '../../shared/components/NoMatch';
@@ -23,7 +23,7 @@ class ProfilePage extends Component {
   // eslint-disable-next-line no-unused-vars
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     const { match: { params: { username } } } = this.props;
-    const { match: { params: { username: nextUsername } } } = nextProps;;
+    const { match: { params: { username: nextUsername } } } = nextProps;
     if (nextUsername !== username) {
       this.fetchData();
     }

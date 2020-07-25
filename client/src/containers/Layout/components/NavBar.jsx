@@ -1,5 +1,5 @@
 // eslint-disable-next-line max-len
-/* eslint-disable react/prop-types,jsx-a11y/anchor-is-valid,jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus */
+/* eslint-disable react/prop-types,jsx-a11y/anchor-is-valid,jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus,react/jsx-one-expression-per-line */
 import React, { useState } from 'react';
 import {
   Row, Col, Button, Input, InputGroup, InputGroupAddon, InputGroupText,
@@ -9,11 +9,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './NavBar.scss';
 import { FiSearch } from 'react-icons/fi';
+import { BsPeopleCircle } from 'react-icons/bs';
 import logo from '../../../assets/logo.png';
 import history from '../../../utils/history';
 import historyRoutes from '../../../routing/historyRoutes';
 import { apiUrl } from '../../../constants';
 import authActions from '../../../redux/reducers/Authentication/authActions';
+import imgAlt from '../../../assets/alt.jpg';
 
 // eslint-disable-next-line react/prop-types
 const NavBar = ({ authReducer, logOut }) => {
@@ -48,15 +50,22 @@ const NavBar = ({ authReducer, logOut }) => {
                       aria-expanded={isDropdownOpen}
                     >
 
-                      <a role="button" className="Nav-Item">
-                        <img src={`${apiUrl}/ftp/uploads/${user.avatar}`} alt="N?A" />
+                      <a className="Nav-Item" role="button">
+                        <img
+                          src={user.avatar ? `${apiUrl}/ftp/uploads/${user.avatar}` : imgAlt}
+                          alt=""
+                        />
                       </a>
                     </DropdownToggle>
                     <DropdownMenu
                       right
-                      className="m-1"
+                      className="mt-2"
                     >
-                      <DropdownItem onClick={() => history.push(`/${user.username}`)}>Profile</DropdownItem>
+                      <DropdownItem onClick={() => history.push(`/${user.username}`)}>
+                        <span className="align-middle">
+                          <span><BsPeopleCircle />&nbsp;&nbsp;&nbsp;Profile</span>
+                        </span>
+                      </DropdownItem>
                       <DropdownItem divider />
                       <DropdownItem onClick={() => logOut()}>Sign Out</DropdownItem>
                     </DropdownMenu>

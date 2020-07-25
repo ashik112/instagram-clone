@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
 import './UserListItem.scss';
 import { apiUrl } from '../../../constants';
+import imgAlt from '../../../assets/alt.jpg';
 
 const UserListItem = ({
   user: {
@@ -15,9 +16,9 @@ const UserListItem = ({
       <Col md={1} xs={3} sm={2} lg={1} xl={1}>
         <Link to={`/${username}`}>
           <img
-            src={`${apiUrl}/ftp/uploads/${avatar}`}
+            src={avatar ? `${apiUrl}/ftp/uploads/${avatar}` : imgAlt}
             className="img-avatar"
-            alt="N/A"
+            alt=""
           />
         </Link>
       </Col>

@@ -28,3 +28,7 @@
 a {
   text-decoration: none !important;
 }
+
+.dropdown-item:focus, .dropdown-item:hover {
+  outline: none !important;
+}

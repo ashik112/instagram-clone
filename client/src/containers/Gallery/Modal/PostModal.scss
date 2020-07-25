@@ -1,0 +1,62 @@
+.modal {
+  display: flex !important;
+  width: 100%;
+}
+
+.modal-dialog {
+  display: flex !important;
+  align-items: center !important;
+  min-width: 90%;
+  margin: 0 auto;
+}
+
+.sidebar {
+  max-height: 540px;
+  display: flex;
+  flex-direction: column;
+  height:100%;
+  min-height:100%;
+}
+
+.sidebar-header {
+  // flex: 1;
+}
+
+.sidebar-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  // max-height: 540px;
+}
+
+.comment-header {
+  // flex: 1;
+}
+
+.comment-list {
+  /*overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 500px;
+  padding-bottom: 100px;*/
+  //min-height: 100px;
+}
+
+.comment-footer {
+  // flex: 1;
+}
+
+.sidebar-footer {
+  padding: 10px;
+}
+
+.post-modal-img__container {
+  background-color: #000000;
+  max-height: 540px;
+  height: 100%;
+}
+
+.post-modal-img {
+  height: auto;
+  max-width: 100%;
+  max-height: 540px;
+}

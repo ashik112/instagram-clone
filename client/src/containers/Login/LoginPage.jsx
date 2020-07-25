@@ -32,7 +32,7 @@ class LoginPage extends Component {
             <Card className="Login-card" border="warning">
               <CardBody>
                 <div className="text-center mb-5">
-                  <img role="button" onClick={() => history.push('/')} className="img-fluid" src={logo} alt="logo" />
+                  <img role="button" onClick={() => history.push('/')} className="img-fluid" src={logo} alt="Instagram" />
                 </div>
                 <LoginForm loading={loading} onLogIn={onLogIn} />
                 { error && (
