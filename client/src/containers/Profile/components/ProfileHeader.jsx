@@ -37,10 +37,10 @@ const ProfileHeader = ({ user }) => {
             <Row className="pt-2 text-left">
               <Col>
                 <span className="pr-2">
-                  <b>{totalPosts}</b> posts
+                  <b>{totalPosts}</b> {totalPosts > 1 ? 'posts' : 'post'}
                 </span>
                 <span className="p-2">
-                  <b>{totalFollowers}</b> followers
+                  <b>{totalFollowers}</b> {totalFollowers > 1 ? 'followers' : 'follower'}
                 </span>
                 <span className="p-2">
                   <b>{totalFollowings}</b> following
