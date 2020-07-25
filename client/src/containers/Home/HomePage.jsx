@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Spinner } from 'reactstrap';
 import axios from '../../utils/axios';
 import { apiUrl } from '../../constants';
-import UserListItem from '../../shared/components/User/UserListItem';
+import UserListItem from '../User/UserListItem';
 
 class HomePage extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class HomePage extends Component {
           users: [...res.data],
           loading: false,
         });
-      }).catch((e) => {
+      }).catch(() => {
         this.setState({
           loading: false,
         });
