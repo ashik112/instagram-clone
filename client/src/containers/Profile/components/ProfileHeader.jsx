@@ -2,10 +2,14 @@
 import React from 'react';
 import { Row, Col, Container } from 'reactstrap';
 import './ProfileHeader.scss';
-import {apiUrl} from '../../../constants';
+import { apiUrl } from '../../../constants';
 
+// eslint-disable-next-line react/prop-types
 const ProfileHeader = ({ user }) => {
-  const { name, username, description, avatar } = user;
+  const {
+    // eslint-disable-next-line react/prop-types
+    name, username, description, avatar, statistics: { totalPosts, totalFollowers, totalFollowings },
+  } = user;
   return (
     <Container>
       <Row>
@@ -33,13 +37,13 @@ const ProfileHeader = ({ user }) => {
             <Row className="pt-2 text-left">
               <Col>
                 <span className="pr-2">
-                  <b>6</b> posts
+                  <b>{totalPosts}</b> posts
                 </span>
                 <span className="p-2">
-                  <b>5</b> likes
+                  <b>{totalFollowers}</b> followers
                 </span>
                 <span className="p-2">
-                  <b>6</b> followers
+                  <b>{totalFollowings}</b> following
                 </span>
               </Col>
             </Row>
