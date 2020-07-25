@@ -21,8 +21,8 @@ export default function authReducer(state = initialState, action) {
         ...state,
         loading: false,
         error: null,
-        user: action.payload.user_details,
-        token: action.payload.jwt_token,
+        user: action.payload.user,
+        token: action.payload.token,
       };
     case authActionTypes.LOGIN_FAILURE:
       return {

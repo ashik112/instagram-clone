@@ -1,5 +1,5 @@
 import axios from 'axios';
-//import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import authActionTypes from './authActionTypes';
 import historyRoutes from '../../../routing/historyRoutes';
 import history from '../../../utils/history';
@@ -10,8 +10,8 @@ const login = (credentials) => {
     return { type: authActionTypes.LOGIN_REQUEST, payload: params };
   }
 
-  function success(user) {
-    return { type: authActionTypes.LOGIN_SUCCESS, payload: user };
+  function success(data) {
+    return { type: authActionTypes.LOGIN_SUCCESS, payload: data };
   }
 
   function failure(error) {
@@ -23,20 +23,20 @@ const login = (credentials) => {
     await dispatch(start({ username, password }));
     await axios.post(apiRoutes.login, { username, password })
       .then(async (res) => {
-        if (res.data && res.data.user_details) {
+        if (res.data && res.data.token) {
           await dispatch(success(res.data));
-          history.push(historyRoutes.profile);
+          history.push(`/${username}`);
         }
       })
       .catch((error) => {
-        //const message = error.response;
-        /*if (error) {
+        // const message = error.response;
+        /* if (error) {
           toast('wrong username / password ❕', {
             position: toast.POSITION.BOTTOM_CENTER,
             hideProgressBar: true,
             rtl: true,
           });
-        }*/
+        } */
         dispatch(failure(error));
       });
   };

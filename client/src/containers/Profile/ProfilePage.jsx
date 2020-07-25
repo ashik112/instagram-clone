@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import ProfileHeader from './components/ProfileHeader';
-import Posts from './components/Posts';
+import Posts from '../Gallery/Posts';
 import axios from '../../utils/axios';
 import { apiUrl } from '../../constants';
 import NoMatch from '../../shared/components/NoMatch';
@@ -16,6 +17,27 @@ class ProfilePage extends Component {
   }
 
   componentDidMount() {
+    this.fetchData();
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    const { match: { params: { username } } } = this.props;
+    const { match: { params: { username: nextUsername } } } = nextProps;
+    if (nextUsername !== username) {
+      this.fetchData();
+    }
+    return true;
+  }
+
+  componentWillUnmount() {
+    this.setState({
+      loading: false,
+      user: null,
+    });
+  }
+
+  fetchData() {
     this.setState({
       loading: true,
     }, () => {
@@ -26,8 +48,7 @@ class ProfilePage extends Component {
           user: res.data,
           loading: false,
         });
-      }).catch((e) => {
-        console.log(e);
+      }).catch(() => {
         this.setState({
           loading: false,
         });

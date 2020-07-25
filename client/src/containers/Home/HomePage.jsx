@@ -23,7 +23,6 @@ class HomePage extends Component {
           loading: false,
         });
       }).catch((e) => {
-        console.log(e);
         this.setState({
           loading: false,
         });

@@ -24,17 +24,16 @@ const LoginForm = ({ loading, onLogIn }) => {
           >
             {({ field }) => (
               <FormGroup>
-                <InputGroup className="mb-2">
                   <Input
+                    className="mb-2"
+                    type="text"
                     bsSize="sm"
                     name="username"
                     id="username"
-                    type="text"
                     placeholder="username, or email"
                     value={field.value}
                     onChange={field.onChange}
                   />
-                </InputGroup>
               </FormGroup>
             )}
           </Field>

@@ -1,3 +1,5 @@
+// eslint-disable-next-line max-len
+/* eslint-disable react/prop-types,jsx-a11y/no-noninteractive-element-to-interactive-role,jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
 import {
   Container,
@@ -11,6 +13,7 @@ import logo from '../../assets/logo.png';
 import authActions from '../../redux/reducers/Authentication/authActions';
 import LoginForm from './components/LoginForm';
 import './LoginPage.scss';
+import history from '../../utils/history';
 
 class LoginPage extends Component {
   componentDidMount() {
@@ -29,7 +32,7 @@ class LoginPage extends Component {
             <Card className="Login-card" border="warning">
               <CardBody>
                 <div className="text-center mb-5">
-                  <img className="img-fluid" src={logo} alt="logo" />
+                  <img role="button" onClick={() => history.push('/')} className="img-fluid" src={logo} alt="Instagram" />
                 </div>
                 <LoginForm loading={loading} onLogIn={onLogIn} />
                 { error && (
