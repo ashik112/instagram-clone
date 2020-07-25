@@ -28,13 +28,13 @@ const Posts = ({ user }) => {
       </span>
       <hr />
       <Container className="mt-3">
-        <Row xs={3} md={3}>
+        <Row xs={1} sm={2} md={3}>
           {
             posts.map((post) => (
               <Col key={post.id} className="mb-4">
                 {/* eslint-disable-next-line max-len */}
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus */}
-                <div onClick={() => setSelectedPost(post)} className="Posts-img-container" role="button">
+                <div onClick={() => setSelectedPost(post)} className="gallery Posts-img-container" role="button">
                   <img
                     role="button"
                     className="Posts-img"
@@ -72,13 +72,15 @@ const Posts = ({ user }) => {
             <div>
               <Row className="m-0 p-0">
                 <Col className="p-0 m-0" md={9}>
-                  <img
-                    className="Posts-modal-img"
-                    src={`${apiUrl}/ftp/uploads/${selectedPost.photo}`}
-                    alt="N/A"
-                  />
+                  <div className="d-flex justify-content-center align-items-center Posts-modal-img-container">
+                    <img
+                      className="Posts-modal-img align-self-center"
+                      src={`${apiUrl}/ftp/uploads/${selectedPost.photo}`}
+                      alt="N/A"
+                    />
+                  </div>
                 </Col>
-                <Col className="p-0 m-0" md={3}>
+                <Col className="p-0 m-0  Posts-sidebar-container" md={3}>
                   <div className="d-flex border-bottom justify-content-start align-items-center p-3">
                     <img
                       className="img-avatar"
