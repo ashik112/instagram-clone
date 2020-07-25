@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
 import './UserListItem.scss';
-import { apiUrl } from '../../../constants';
-import imgAlt from '../../../assets/alt.jpg';
+import { apiUrl } from '../../constants';
+import imgAlt from '../../assets/alt.jpg';
 
 const UserListItem = ({
   user: {
