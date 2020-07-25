@@ -9,8 +9,15 @@
 
 .img-avatar {
   vertical-align: middle;
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.img-post-avatar {
+  vertical-align: middle;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
 }
 

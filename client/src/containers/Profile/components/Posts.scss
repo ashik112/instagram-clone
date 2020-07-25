@@ -45,3 +45,19 @@
   text-align: center;
 }
 
+.modal {
+  display: flex !important;
+  width: 100%;
+}
+
+.modal-dialog {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.Posts-modal-img {
+  height: auto;
+  width: 100%;
+  max-width: 920px;
+}
+
