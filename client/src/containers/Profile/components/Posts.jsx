@@ -16,11 +16,28 @@ const Posts = ({ user }) => {
   const { id } = user;
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   useEffect(() => {
     axios.get(`${apiUrl}/users/${id}/posts`).then((res) => {
       setPosts([...res.data]);
     });
   }, [id]);
+  const onClickPost = (post, index) => {
+    setSelectedPost(post);
+    setSelectedIndex(index);
+  };
+  const onClickNext = () => {
+    if (posts[selectedIndex + 1]) {
+      setSelectedPost(posts[selectedIndex + 1]);
+      setSelectedIndex(selectedIndex + 1);
+    }
+  };
+  const onClickPrevious = () => {
+    if (posts[selectedIndex - 1]) {
+      setSelectedPost(posts[selectedIndex - 1]);
+      setSelectedIndex(selectedIndex - 1);
+    }
+  };
   return (
     <div className="mt-5 text-center">
       <span className="small text-grey align-middle">
@@ -30,11 +47,11 @@ const Posts = ({ user }) => {
       <Container className="mt-3">
         <Row xs={1} sm={2} md={3}>
           {
-            posts.map((post) => (
+            posts.map((post, index) => (
               <Col key={post.id} className="mb-4">
                 {/* eslint-disable-next-line max-len */}
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus */}
-                <div onClick={() => setSelectedPost(post)} className="gallery Posts-img-container" role="button">
+                <div onClick={() => onClickPost(post, index)} className="gallery Posts-img-container" role="button">
                   <img
                     role="button"
                     className="Posts-img"
@@ -56,6 +73,7 @@ const Posts = ({ user }) => {
       {
         selectedPost && (
           <Modal
+            toggle={() => setSelectedPost(null)}
             className="Compact"
             isOpen
             external={(
@@ -94,20 +112,30 @@ const Posts = ({ user }) => {
                 </Col>
               </Row>
             </div>
-            <a
-              type="button"
-              className="close text-light"
-              style={{ position: 'absolute', top: '48%', right: '-30px' }}
-            >
-              <MdKeyboardArrowRight />
-            </a>
-            <a
-              type="button"
-              className="close text-light"
-              style={{ position: 'absolute', top: '48%', left: '-30px' }}
-            >
-              <MdKeyboardArrowLeft />
-            </a>
+            {
+              selectedIndex < posts.length - 1 && (
+                <a
+                  onClick={onClickNext}
+                  type="button"
+                  className="close text-light"
+                  style={{ position: 'absolute', top: '48%', right: '-50px' }}
+                >
+                  <MdKeyboardArrowRight size={48} />
+                </a>
+              )
+            }
+            {
+              selectedIndex > 0 && (
+                <a
+                  onClick={onClickPrevious}
+                  type="button"
+                  className="close text-light"
+                  style={{ position: 'absolute', top: '48%', left: '-50px' }}
+                >
+                  <MdKeyboardArrowLeft size={48} />
+                </a>
+              )
+            }
           </Modal>
         )
       }
