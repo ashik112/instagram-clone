@@ -43,8 +43,8 @@ const Posts = ({ user }) => {
                   />
                   <div className="overlay">
                     <div className="Posts-img-text d-flex align-items-center align-middle">
-                      <span className="mr-3"><BsFillHeartFill /> {post.comments && post.comments.length}</span>
-                      <span className="ml-3"><BsFillChatFill /> {post.likes && post.likes.length}</span>
+                      <span className="mr-3"><BsFillHeartFill /> {post.likes && post.likes.length}</span>
+                      <span className="ml-3"><BsFillChatFill /> {post.comments && post.comments.length}</span>
                     </div>
                   </div>
                 </div>
