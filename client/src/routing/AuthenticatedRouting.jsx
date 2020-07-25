@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading,react/prop-types */
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -24,7 +25,7 @@ function AuthenticatedRouting({
       )}
       {
         !authReducer.token && (
-          <Redirect exact to={historyRoutes.login} />
+          <Redirect exact to={historyRoutes.home} />
         )
       }
     </>

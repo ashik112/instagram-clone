@@ -1,6 +1,9 @@
-import React from 'react';
+// eslint-disable-next-line max-len
+/* eslint-disable react/prop-types,jsx-a11y/anchor-is-valid,jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus */
+import React, { useState } from 'react';
 import {
   Row, Col, Button, Input, InputGroup, InputGroupAddon, InputGroupText,
+  Dropdown, DropdownMenu, DropdownToggle, DropdownItem,
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -9,11 +12,14 @@ import { FiSearch } from 'react-icons/fi';
 import logo from '../../../assets/logo.png';
 import history from '../../../utils/history';
 import historyRoutes from '../../../routing/historyRoutes';
+import { apiUrl } from '../../../constants';
+import authActions from '../../../redux/reducers/Authentication/authActions';
 
 // eslint-disable-next-line react/prop-types
-const NavBar = ({ authReducer }) => {
+const NavBar = ({ authReducer, logOut }) => {
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
   // eslint-disable-next-line react/prop-types
-  const { token } = authReducer;
+  const { token, user } = authReducer;
   return (
     <>
       <nav className="Nav Compact">
@@ -34,10 +40,27 @@ const NavBar = ({ authReducer }) => {
             </Col>
             <Col className="text-right" md={4} sm={4} lg={4} xs={4}>
               {
-                (token && (
-                  <span role="button" className="Nav-Item">
-                    <img src="https://avatars3.githubusercontent.com/u/9448239?s=460&u=1bef28fa08aa10787dd00654fc304442ebb92ddc&v=4" alt="N?A" />
-                  </span>
+                (token && user && (
+                  <Dropdown isOpen={isDropdownOpen} toggle={() => setDropdownOpen(!isDropdownOpen)}>
+                    <DropdownToggle
+                      tag="span"
+                      data-toggle="dropdown"
+                      aria-expanded={isDropdownOpen}
+                    >
+
+                      <a role="button" className="Nav-Item">
+                        <img src={`${apiUrl}/ftp/uploads/${user.avatar}`} alt="N?A" />
+                      </a>
+                    </DropdownToggle>
+                    <DropdownMenu
+                      right
+                      className="m-1"
+                    >
+                      <DropdownItem onClick={() => history.push(`/${user.username}`)}>Profile</DropdownItem>
+                      <DropdownItem divider />
+                      <DropdownItem onClick={() => logOut()}>Sign Out</DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
                 )) || (
                   <>
                     <Button onClick={() => history.push(historyRoutes.login)} size="sm" color="secondary">Sign In</Button>
@@ -55,4 +78,10 @@ const NavBar = ({ authReducer }) => {
 const mapStateToProps = (state) => ({
   authReducer: state.authReducer,
 });
-export default connect(mapStateToProps, null)(NavBar);
+
+const mapDispatchToProps = (dispatch) => ({
+  logOut: () => dispatch(authActions.logout()),
+  stopLoading: () => dispatch(authActions.stopLoading()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

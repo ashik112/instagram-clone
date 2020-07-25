@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import history from './utils/history';
 import LoginPage from './containers/Login/LoginPage';
@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.scss';
 import './shared/styles/styles.scss';
+import UnauthenticatedRouting from './routing/UnauthenticatedRouting';
 
 // eslint-disable-next-line react/prop-types
 const App = ({ store, persistor }) => (
@@ -17,7 +18,7 @@ const App = ({ store, persistor }) => (
     <PersistGate loading={null} persistor={persistor}>
       <Router history={history}>
         <Switch>
-          <Route exact component={LoginPage} path="/login" />
+          <UnauthenticatedRouting exact component={LoginPage} path="/login" />
           <LayoutWrapper />
         </Switch>
       </Router>

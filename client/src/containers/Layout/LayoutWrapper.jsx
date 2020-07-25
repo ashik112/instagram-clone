@@ -10,8 +10,8 @@ const LayoutWrapper = () => (
     <NavBar />
     <div className="Compact" style={{ marginTop: '80px' }}>
       <Switch>
-        <Route exact component={HomePage} path="/" />
         <Route exact path="/:username" component={ProfilePage} />
+        <Route exact component={HomePage} path="/" />
         <Route component={NoMatch} />
       </Switch>
     </div>

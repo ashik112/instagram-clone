@@ -8,6 +8,7 @@ import historyRoutes from './historyRoutes';
 /**
  * * [Conditional rendering with Authentication]
  */
+// eslint-disable-next-line react/prop-types
 function UnauthenticatedRouting({ component: Component, authReducer, ...rest }) {
   return (
     <>
@@ -23,7 +24,7 @@ function UnauthenticatedRouting({ component: Component, authReducer, ...rest }) 
       }
       {
         authReducer.token && (
-          <Redirect exact from={historyRoutes.login} to={historyRoutes.profile} />
+          <Redirect exact from={historyRoutes.login} to={historyRoutes.home} />
         )
       }
     </>

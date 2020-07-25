@@ -1,5 +1,5 @@
 const historyRoutes = {
-  profile: '/profile',
+  home: '/',
   login: '/login',
 };
 
