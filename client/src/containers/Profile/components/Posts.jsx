@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import { MdGridOn } from 'react-icons/md';
 import { Container, Row, Col } from 'reactstrap';
 import './Posts.scss';
+import { BsFillHeartFill, BsFillChatFill } from 'react-icons/bs';
 import axios from '../../../utils/axios';
 import { apiUrl } from '../../../constants';
 
@@ -20,7 +21,7 @@ const Posts = ({ user }) => {
   return (
     <div className="mt-5 text-center">
       <span className="small text-grey align-middle">
-        <MdGridOn size={12} /> Posts
+        <MdGridOn size={12} /> POSTS
       </span>
       <hr />
       <Container className="mt-3">
@@ -28,12 +29,20 @@ const Posts = ({ user }) => {
           {
             posts.map((post) => (
               <Col key={post.id} className="mb-4">
-                <img
-                  role="button"
-                  className="Posts-img"
-                  src={`${apiUrl}/ftp/uploads/${post.photo}`}
-                  alt="N/A"
-                />
+                <div className="Posts-img-container">
+                  <img
+                    role="button"
+                    className="Posts-img"
+                    src={`${apiUrl}/ftp/uploads/${post.photo}`}
+                    alt="N/A"
+                  />
+                  <div className="overlay">
+                    <div className="Posts-img-text d-flex align-items-center align-middle">
+                      <span className="mr-3"><BsFillHeartFill /> {post.comments && post.comments.length}</span>
+                      <span className="ml-3"><BsFillChatFill /> {post.likes && post.likes.length}</span>
+                    </div>
+                  </div>
+                </div>
               </Col>
             ))
           }
