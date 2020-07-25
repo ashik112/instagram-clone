@@ -27,20 +27,20 @@ const NavBar = ({ authReducer, logOut }) => {
       <nav className="Nav Compact">
         <>
           <Row className="Nav-menus">
-            <Col md={4} sm={4} lg={4} xs={4}>
+            <Col md={6} sm={6} lg={6} xs={6}>
               <Link to="/">
                 <img src={logo} alt="Instagram" />
               </Link>
             </Col>
-            <Col className="text-center" md={4} sm={4} lg={4} xs={4}>
+            {/* <Col className="text-center" md={4} sm={4} lg={4} xs={4}>
               <InputGroup size="sm">
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText><FiSearch /></InputGroupText>
                 </InputGroupAddon>
                 <Input bsSize="sm" type="text" placeholder="Search" />
               </InputGroup>
-            </Col>
-            <Col className="text-right" md={4} sm={4} lg={4} xs={4}>
+            </Col> */}
+            <Col className="text-right" md={6} sm={6} lg={6} xs={6}>
               {
                 (token && user && (
                   <Dropdown isOpen={isDropdownOpen} toggle={() => setDropdownOpen(!isDropdownOpen)}>
