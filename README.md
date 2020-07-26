@@ -118,8 +118,8 @@ Go [here](https://documenter.getpostman.com/view/10049988/T1DpDdbV) to view it i
 2. Proper error messages on api response.
 3. Global error handling on react app.
 4. Infinite scrolling on comments and posts.
-5. Home Page
-6. User registration and other expected functionalities on frontend app.
+5. Home Page with Posts
+6. User registration, like, follow, comment and other expected functionalities on frontend app.
 7. Unit testing
 8. Database migration
 8. And many more...
