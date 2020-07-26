@@ -9,24 +9,24 @@ Basic Instagram clone using React, Node, Mysql.
 ## Overview
 
 Performing any CRUD operations from client app has not been implemented yet.
-Data has to inserted through api calls separately. Use `curl` or `postman`. See `API` section for or go to [api documentation](httpsdocumenter.getpostman.comview10049988T1DpDdbV).
+Data has to inserted through api calls separately. Use `curl` or `postman`. See `API` section for or go to [api documentation](https://documenter.getpostman.com/view/10049988/T1DpDdbV).
 
 ## Requirements
 
-1. node (=12.18.3 recommended)
+1. node (>=12.18.3 recommended)
 2. mysql
 3. yarn (recommended)
 
 ## Usage
 
-1. clone  download it
+1. Clone or download the project.
 
-Client application (`client`) is separate from the backend (`api`).
-Both applications must be started together for the client app to get access to server through API calls.
+Client application (`./client`) is fully separated from the backend application (`./api`).
+Both applications must be running at the same time for the client app to get access to the server through API calls.
 
 ### 1. Backend
 
-1. Configs are in `api.env`. Change according to your development environment.
+1. Configs are in `./api/.env`. Change according to your development environment.
 
     ```bash
     DB_HOST=localhost
@@ -42,14 +42,14 @@ Both applications must be started together for the client app to get access to s
 3. From root folder import `instagram_clone.sql` in your database to get demo data. Two users are included already for demo.
 
    ```javascript
-    username batman
-    password batman
+    username: batman
+    password: batman
 
-    username joker
-    password batman
+    username: joker
+    password: batman
    ```
 
-4. Go to `api` directory
+4. Go to `./api` directory
 5. Install dependencies
 
     ```bash
@@ -66,7 +66,7 @@ Both applications must be started together for the client app to get access to s
 
 ### 2. Frontend
 
-1. go to `client` directory
+1. Go to `./client` directory
 2. Install dependencies
 
     ```bash
@@ -77,10 +77,10 @@ Both applications must be started together for the client app to get access to s
         yarn
     ```
 
-3. Set api url in `client.env` (or .env.local) depending on your backend configuration
+3. Set API URL in `./client/.env` (or .env.local) depending on your backend configuration
 
     ```javascript
-        REACT_APP_API_URL = 'httplocalhost9000'
+        REACT_APP_API_URL='http://localhost:9000'
     ```
 
 4. Run
@@ -93,11 +93,9 @@ Both applications must be started together for the client app to get access to s
         yarn start
     ```
 
-4. Go to [httplocalhost3000](httplocalhost3000) in browser.
+5. Go to [http://localhost:3000](http://localhost:3000) in browser.
 
 ## API
-
-### Overview
 
 Very basic APIs for an Instagram clone. It has all the basic CRUD operations to view the frontend application.
 
@@ -112,4 +110,20 @@ Will return generic error responses with error and message fields.
 ### Documentation
 
 The documentation is published from postman.
-Go [here](httpsdocumenter.getpostman.comview10049988T1DpDdbV) to view it in the browser.
+Go [here](https://documenter.getpostman.com/view/10049988/T1DpDdbV) to view it in the browser.
+
+## Future Improvements (Planned)
+
+1. Proper type checking with react prop-types.
+2. Proper error messages on api response.
+3. Global error handling on react app.
+4. Infinite scrolling on comments and posts.
+5. Home Page
+6. User registration and other expected functionalities on frontend app.
+7. Unit testing
+8. And many more...
+
+## Known Issues
+
+`reacstrap` uses an older version of `react-transition-group` in their modals. It will show errors in console but it can be safely used in `react ^16.x`. Hopefully, this will be fixed in the next major update of `reacstrap`.
+
