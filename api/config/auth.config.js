@@ -1,3 +1,3 @@
 module.exports = {
-  secret: 'iDontFeelSafeHerePleaseMoveMeToEnvAndGiveMeSomeHash',
+  secret: process.env.JWT_SECRET_KEY,
 };
