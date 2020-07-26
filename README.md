@@ -122,9 +122,8 @@ Go [here](https://documenter.getpostman.com/view/10049988/T1DpDdbV) to view it i
 6. User registration, like, follow, comment and other expected functionalities on frontend app.
 7. Unit testing
 8. Database migration
-8. And many more...
+9. And many more...
 
 ## Known Issues
 
 `reacstrap` uses an older version of `react-transition-group` in their modals. It will show errors in console but it can be safely used in `react ^16.x`. This will be fixed in the next major update of `reacstrap`.
-
