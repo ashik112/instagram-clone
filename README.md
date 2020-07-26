@@ -121,6 +121,7 @@ Go [here](https://documenter.getpostman.com/view/10049988/T1DpDdbV) to view it i
 5. Home Page
 6. User registration and other expected functionalities on frontend app.
 7. Unit testing
+8. Database migration
 8. And many more...
 
 ## Known Issues
