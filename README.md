@@ -126,5 +126,5 @@ Go [here](https://documenter.getpostman.com/view/10049988/T1DpDdbV) to view it i
 
 ## Known Issues
 
-`reacstrap` uses an older version of `react-transition-group` in their modals. It will show errors in console but it can be safely used in `react ^16.x`. Hopefully, this will be fixed in the next major update of `reacstrap`.
+`reacstrap` uses an older version of `react-transition-group` in their modals. It will show errors in console but it can be safely used in `react ^16.x`. This will be fixed in the next major update of `reacstrap`.
 
