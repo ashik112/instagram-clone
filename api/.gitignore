@@ -24,3 +24,6 @@ yarn-error.log*
 
 #ide
 .idea
+public/temp/*
+public/uploads/*
+.env
