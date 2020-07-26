@@ -4,8 +4,8 @@ import { Row, Col } from 'reactstrap';
 import ProfileHeader from './components/ProfileHeader';
 import Posts from '../Gallery/Posts';
 import axios from '../../utils/axios';
-import { apiUrl } from '../../constants';
 import NoMatch from '../../shared/components/NoMatch';
+import { apiRoutes } from '../../routing/apiRoutes';
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class ProfilePage extends Component {
     }, () => {
       // eslint-disable-next-line react/prop-types
       const { match: { params: { username } } } = this.props;
-      axios.get(`${apiUrl}/users/username/${username}`).then((res) => {
+      axios.get(apiRoutes.user.findByUsername(username)).then((res) => {
         this.setState({
           user: res.data,
           loading: false,

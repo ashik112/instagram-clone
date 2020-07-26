@@ -2,7 +2,7 @@
 import React from 'react';
 import { Row, Col, Container } from 'reactstrap';
 import './ProfileHeader.scss';
-import { apiUrl } from '../../../constants';
+import { apiRoutes } from '../../../routing/apiRoutes';
 
 // eslint-disable-next-line react/prop-types
 const ProfileHeader = ({ user }) => {
@@ -17,7 +17,7 @@ const ProfileHeader = ({ user }) => {
           <img
             alt=""
             className="Profile-avatar"
-            src={`${apiUrl}/ftp/uploads/${avatar}`}
+            src={apiRoutes.imageSrc(avatar)}
           />
         </Col>
         <Col sm={8} md={8}>

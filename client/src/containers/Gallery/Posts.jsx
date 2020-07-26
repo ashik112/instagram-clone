@@ -7,9 +7,9 @@ import {
 import './Posts.scss';
 import { MdGridOn } from 'react-icons/md';
 import axios from '../../utils/axios';
-import { apiUrl } from '../../constants';
 import PostModal from './Modal/PostModal';
 import PostImage from './PostImage';
+import { apiRoutes } from '../../routing/apiRoutes';
 
 // eslint-disable-next-line react/prop-types
 const Posts = ({ user }) => {
@@ -19,7 +19,7 @@ const Posts = ({ user }) => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(null);
   useEffect(() => {
-    axios.get(`${apiUrl}/users/${id}/posts`).then((res) => {
+    axios.get(apiRoutes.posts.getByUser(id)).then((res) => {
       setPosts([...res.data]);
     });
   }, [id]);

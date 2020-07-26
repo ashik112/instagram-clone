@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { toast } from 'react-toastify';
 import authActionTypes from './authActionTypes';
 import historyRoutes from '../../../routing/historyRoutes';
 import history from '../../../utils/history';
@@ -25,18 +24,10 @@ const login = (credentials) => {
       .then(async (res) => {
         if (res.data && res.data.token) {
           await dispatch(success(res.data));
-          history.push(`/${username}`);
+          history.push(historyRoutes.profile(res.data.user.username));
         }
       })
       .catch((error) => {
-        // const message = error.response;
-        /* if (error) {
-          toast('wrong username / password ❕', {
-            position: toast.POSITION.BOTTOM_CENTER,
-            hideProgressBar: true,
-            rtl: true,
-          });
-        } */
         dispatch(failure(error));
       });
   };

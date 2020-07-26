@@ -38,7 +38,6 @@ UnauthenticatedRouting.propTypes = {
 UnauthenticatedRouting.defaultProps = {
   authReducer: {
     token: null,
-    company: {},
   },
 };
 
