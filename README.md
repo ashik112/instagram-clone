@@ -9,7 +9,7 @@ Basic Instagram clone using React, Node, Mysql.
 ## Overview
 
 Performing any CRUD operations from client app has not been implemented yet.
-Data has to inserted through api calls separately. Use `curl` or `postman`. See `API` section for or go to [api documentation](https://documenter.getpostman.com/view/10049988/T1DpDdbV).
+Data has to inserted through api calls separately. Use `curl` or `postman`. See `API` section or go to [api documentation](https://documenter.getpostman.com/view/10049988/T1DpDdbV).
 
 ## Requirements
 
