@@ -2,13 +2,16 @@
 import React from 'react';
 import { Row, Col, Container } from 'reactstrap';
 import './ProfileHeader.scss';
-import { apiUrl } from '../../../constants';
+import { apiRoutes } from '../../../routing/apiRoutes';
+import { UserPropTypes } from '../../../propTypes';
 
-// eslint-disable-next-line react/prop-types
 const ProfileHeader = ({ user }) => {
   const {
-    // eslint-disable-next-line react/prop-types,max-len
-    name, username, description, avatar, statistics: { totalPosts, totalFollowers, totalFollowings },
+    name,
+    username,
+    description,
+    avatar,
+    statistics: { totalPosts, totalFollowers, totalFollowings },
   } = user;
   return (
     <Container>
@@ -17,7 +20,7 @@ const ProfileHeader = ({ user }) => {
           <img
             alt=""
             className="Profile-avatar"
-            src={`${apiUrl}/ftp/uploads/${avatar}`}
+            src={apiRoutes.imageSrc(avatar)}
           />
         </Col>
         <Col sm={8} md={8}>
@@ -63,5 +66,8 @@ const ProfileHeader = ({ user }) => {
     </Container>
   );
 };
+
+ProfileHeader.defaultProps = UserPropTypes.defaultProps;
+ProfileHeader.propTypes = UserPropTypes.propTypes;
 
 export default ProfileHeader;

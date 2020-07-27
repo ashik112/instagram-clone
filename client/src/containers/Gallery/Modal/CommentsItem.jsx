@@ -1,9 +1,10 @@
-/* eslint-disable react/prop-types,react/jsx-one-expression-per-line */
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { Col, Row } from 'reactstrap';
 import { formatDistanceStrict } from 'date-fns';
-import { apiUrl } from '../../../constants';
 import imgAlt from '../../../assets/alt.jpg';
+import { apiRoutes } from '../../../routing/apiRoutes';
+import { CommentPropTypes } from '../../../propTypes';
 
 const CommentsItem = ({
   comment: {
@@ -15,7 +16,7 @@ const CommentsItem = ({
       <div className="d-flex justify-content-start align-items-center pt-0 pl-3 pr-3">
         <img
           className="img-avatar align-self-start"
-          src={avatar ? `${apiUrl}/ftp/uploads/${avatar}` : imgAlt}
+          src={avatar ? apiRoutes.imageSrc(avatar) : imgAlt}
           alt=""
         />
         <div className="pl-2">
@@ -29,5 +30,8 @@ const CommentsItem = ({
     </Col>
   </Row>
 );
+
+CommentsItem.propTypes = CommentPropTypes.propTypes;
+CommentsItem.defaultProps = CommentPropTypes.defaultProps;
 
 export default CommentsItem;

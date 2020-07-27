@@ -14,6 +14,7 @@ import authActions from '../../redux/reducers/Authentication/authActions';
 import LoginForm from './components/LoginForm';
 import './LoginPage.scss';
 import history from '../../utils/history';
+import historyRoutes from '../../routing/historyRoutes';
 
 class LoginPage extends Component {
   componentDidMount() {
@@ -26,13 +27,12 @@ class LoginPage extends Component {
     const { loading, error } = authReducer;
     return (
       <Container fluid className="text-center Login-container" style={{ height: '100vh' }}>
-        {/* <div className="background-image" /> */}
         <Row style={{ blur: '0 !important' }} className="h-100 justify-content-center align-items-center content">
           <Col md={4}>
             <Card className="Login-card" border="warning">
               <CardBody>
                 <div className="text-center mb-5">
-                  <img role="button" onClick={() => history.push('/')} className="img-fluid" src={logo} alt="Instagram" />
+                  <img role="button" onClick={() => history.push(historyRoutes.home)} className="img-fluid" src={logo} alt="Instagram" />
                 </div>
                 <LoginForm loading={loading} onLogIn={onLogIn} />
                 { error && (

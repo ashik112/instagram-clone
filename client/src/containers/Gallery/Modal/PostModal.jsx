@@ -4,11 +4,11 @@ import React from 'react';
 import { Col, Modal, Row } from 'reactstrap';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import { BsHeart, BsChat } from 'react-icons/bs';
-import { apiUrl } from '../../../constants';
 import CommentsHeader from './CommentsHeader';
 import CommentsItem from './CommentsItem';
 import './PostModal.scss';
 import imgAlt from '../../../assets/alt.jpg';
+import { apiRoutes } from '../../../routing/apiRoutes';
 
 const PostModal = ({
   post, postsLength, onClose, onClickNext, postIndex, onClickPrevious,
@@ -34,7 +34,7 @@ const PostModal = ({
           <div className="post-modal-img__container d-flex justify-content-center align-items-center">
             <img
               className="post-modal-img align-self-center"
-              src={`${apiUrl}/ftp/uploads/${post.photo}`}
+              src={apiRoutes.imageSrc(post.photo)}
               alt=""
             />
           </div>
@@ -45,7 +45,7 @@ const PostModal = ({
               <div className="d-flex border-bottom justify-content-start align-items-center p-3">
                 <img
                   className="img-avatar"
-                  src={post.user.avatar ? `${apiUrl}/ftp/uploads/${post.user.avatar}` : imgAlt}
+                  src={post.user.avatar ? apiRoutes.imageSrc(post.user.avatar) : imgAlt}
                   alt=""
                 />
                 <div className="pl-2">

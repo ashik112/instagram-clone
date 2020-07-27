@@ -3,17 +3,18 @@
 import React from 'react';
 import { BsFillChatFill, BsFillHeartFill } from 'react-icons/bs';
 import { Col } from 'reactstrap';
-import { apiUrl } from '../../constants';
 import './PostImage.scss';
+import { apiRoutes } from '../../routing/apiRoutes';
 
 const PostImage = ({ post, postIndex, onClick }) => (
   <>
     <Col key={post.id} className="mb-4">
       <div onClick={() => onClick(post, postIndex)} className="post-img-container" role="button">
+        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
         <img
           role="button"
           className="post-img"
-          src={`${apiUrl}/ftp/uploads/${post.photo}`}
+          src={apiRoutes.imageSrc(post.photo)}
           alt=""
         />
         <div className="overlay">

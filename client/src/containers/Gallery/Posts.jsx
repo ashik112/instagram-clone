@@ -7,11 +7,11 @@ import {
 import './Posts.scss';
 import { MdGridOn } from 'react-icons/md';
 import axios from '../../utils/axios';
-import { apiUrl } from '../../constants';
 import PostModal from './Modal/PostModal';
 import PostImage from './PostImage';
+import { apiRoutes } from '../../routing/apiRoutes';
+import { UserPropTypes } from '../../propTypes';
 
-// eslint-disable-next-line react/prop-types
 const Posts = ({ user }) => {
   // eslint-disable-next-line react/prop-types
   const { id } = user;
@@ -19,7 +19,7 @@ const Posts = ({ user }) => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(null);
   useEffect(() => {
-    axios.get(`${apiUrl}/users/${id}/posts`).then((res) => {
+    axios.get(apiRoutes.posts.getByUser(id)).then((res) => {
       setPosts([...res.data]);
     });
   }, [id]);
@@ -73,5 +73,8 @@ const Posts = ({ user }) => {
     </div>
   );
 };
+
+Posts.propTypes = UserPropTypes.propTypes;
+Posts.defaultProps = UserPropTypes.defaultProps;
 
 export default Posts;

@@ -2,20 +2,21 @@
 /* eslint-disable react/prop-types,jsx-a11y/anchor-is-valid,jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus,react/jsx-one-expression-per-line */
 import React, { useState } from 'react';
 import {
-  Row, Col, Button, Input, InputGroup, InputGroupAddon, InputGroupText,
+  Row, Col, Button,
+  // Input, InputGroup, InputGroupAddon, InputGroupText,
   Dropdown, DropdownMenu, DropdownToggle, DropdownItem,
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './NavBar.scss';
-import { FiSearch } from 'react-icons/fi';
+// import { FiSearch } from 'react-icons/fi';
 import { BsPeopleCircle } from 'react-icons/bs';
 import logo from '../../../assets/logo.png';
 import history from '../../../utils/history';
 import historyRoutes from '../../../routing/historyRoutes';
-import { apiUrl } from '../../../constants';
 import authActions from '../../../redux/reducers/Authentication/authActions';
 import imgAlt from '../../../assets/alt.jpg';
+import { apiRoutes } from '../../../routing/apiRoutes';
 
 // eslint-disable-next-line react/prop-types
 const NavBar = ({ authReducer, logOut }) => {
@@ -52,7 +53,7 @@ const NavBar = ({ authReducer, logOut }) => {
 
                       <a className="Nav-Item" role="button">
                         <img
-                          src={user.avatar ? `${apiUrl}/ftp/uploads/${user.avatar}` : imgAlt}
+                          src={user.avatar ? apiRoutes.imageSrc(user.avatar) : imgAlt}
                           alt=""
                         />
                       </a>
@@ -61,7 +62,8 @@ const NavBar = ({ authReducer, logOut }) => {
                       right
                       className="mt-2"
                     >
-                      <DropdownItem onClick={() => history.push(`/${user.username}`)}>
+                      {/* eslint-disable-next-line max-len */}
+                      <DropdownItem onClick={() => history.push(historyRoutes.profile(user.username))}>
                         <span className="align-middle">
                           <span><BsPeopleCircle />&nbsp;&nbsp;&nbsp;Profile</span>
                         </span>

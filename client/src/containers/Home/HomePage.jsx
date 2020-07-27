@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Spinner } from 'reactstrap';
 import axios from '../../utils/axios';
-import { apiUrl } from '../../constants';
 import UserListItem from '../User/UserListItem';
+import { apiRoutes } from '../../routing/apiRoutes';
 
 class HomePage extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class HomePage extends Component {
     this.setState({
       loading: true,
     }, () => {
-      axios.get(`${apiUrl}/users`).then((res) => {
+      axios.get(apiRoutes.user.getAll).then((res) => {
         this.setState({
           users: [...res.data],
           loading: false,

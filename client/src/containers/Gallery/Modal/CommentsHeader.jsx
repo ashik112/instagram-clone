@@ -2,7 +2,8 @@
 import React from 'react';
 import { Col, Row } from 'reactstrap';
 import { formatDistanceStrict } from 'date-fns';
-import { apiUrl } from '../../../constants';
+import { apiRoutes } from '../../../routing/apiRoutes';
+import { PostPropTypes } from '../../../propTypes';
 
 const CommentsHeader = ({ post }) => (
   <Row>
@@ -10,7 +11,7 @@ const CommentsHeader = ({ post }) => (
       <div className="d-flex justify-content-start align-items-center p-3">
         <img
           className="img-avatar align-self-start"
-          src={`${apiUrl}/ftp/uploads/${post.user.avatar}`}
+          src={apiRoutes.imageSrc(post.user.avatar)}
           alt=""
         />
         <div className="pl-2">
@@ -22,5 +23,8 @@ const CommentsHeader = ({ post }) => (
     </Col>
   </Row>
 );
+
+CommentsHeader.propTypes = PostPropTypes.propTypes;
+CommentsHeader.defaultProps = PostPropTypes.defaultProps;
 
 export default CommentsHeader;
