@@ -114,16 +114,16 @@ Go [here](https://documenter.getpostman.com/view/10049988/T1DpDdbV) to view it i
 
 ## Future Improvements (Planned)
 
-1. Proper type checking with react prop-types.
-2. Proper error messages on api response.
-3. Global error handling on react app.
-4. Infinite scrolling on comments and posts.
-5. Home Page with Posts
-6. User registration, like, follow, comment and other expected functionalities on frontend app.
-7. Unit testing
-8. Database migration
+1. Proper error messages on api response.
+2. Global error handling on react app.
+3. Infinite scrolling on comments and posts, limiting the number of entries api returns.
+4. Home Page with Posts
+5. User registration, like, follow, comment and other expected functionalities on frontend app.
+6. Unit testing
+7. Database migration
+8. Compress image before saving it in storage
 9. And many more...
 
 ## Known Issues
 
-`reacstrap` uses an older version of `react-transition-group` in their modals. It will show errors in console but it can be safely used in `react ^16.x`. This will be fixed in the next major update of `reacstrap`.
+1. `reacstrap` uses an older version of `react-transition-group` in their modals. It will show errors in console but it can be safely used in `react ^16.x`. This will be fixed in the next major update of `reacstrap`.
