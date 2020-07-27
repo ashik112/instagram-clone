@@ -10,6 +10,14 @@
   margin: 0 auto;
 }
 
+.modal-content {
+  @media screen and (max-width: 767px) {
+    overflow-y: auto;
+    height: 100%;
+    overflow-x: hidden;
+  }
+}
+
 .sidebar {
   max-height: 540px;
   display: flex;
