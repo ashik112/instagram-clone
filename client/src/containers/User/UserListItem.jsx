@@ -1,11 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
 import './UserListItem.scss';
 import imgAlt from '../../assets/alt.jpg';
 import { apiRoutes } from '../../routing/apiRoutes';
 import historyRoutes from '../../routing/historyRoutes';
+import { UserPropTypes } from '../../propTypes';
 
 const UserListItem = ({
   user: {
@@ -34,22 +34,8 @@ const UserListItem = ({
   </div>
 );
 
-UserListItem.defaultProps = {
-  user: {
-    name: '',
-    avatar: '',
-    username: '',
-    description: '',
-  },
-};
+UserListItem.defaultProps = UserPropTypes.defaultProps;
 
-UserListItem.propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string,
-    avatar: PropTypes.string,
-    username: PropTypes.string,
-    description: PropTypes.string,
-  }),
-};
+UserListItem.propTypes = UserPropTypes.propTypes;
 
 export default UserListItem;

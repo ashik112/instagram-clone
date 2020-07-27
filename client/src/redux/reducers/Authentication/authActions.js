@@ -3,6 +3,7 @@ import authActionTypes from './authActionTypes';
 import historyRoutes from '../../../routing/historyRoutes';
 import history from '../../../utils/history';
 import { apiRoutes } from '../../../routing/apiRoutes';
+import { sleep } from '../../../utils/sleep';
 
 const login = (credentials) => {
   function start(params) {
@@ -24,6 +25,7 @@ const login = (credentials) => {
       .then(async (res) => {
         if (res.data && res.data.token) {
           await dispatch(success(res.data));
+          await sleep(50);
           history.push(historyRoutes.profile(res.data.user.username));
         }
       })

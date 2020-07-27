@@ -3,6 +3,7 @@ import React from 'react';
 import { Col, Row } from 'reactstrap';
 import { formatDistanceStrict } from 'date-fns';
 import { apiRoutes } from '../../../routing/apiRoutes';
+import { PostPropTypes } from '../../../propTypes';
 
 const CommentsHeader = ({ post }) => (
   <Row>
@@ -22,5 +23,8 @@ const CommentsHeader = ({ post }) => (
     </Col>
   </Row>
 );
+
+CommentsHeader.propTypes = PostPropTypes.propTypes;
+CommentsHeader.defaultProps = PostPropTypes.defaultProps;
 
 export default CommentsHeader;

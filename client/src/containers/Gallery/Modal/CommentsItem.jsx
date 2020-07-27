@@ -1,9 +1,10 @@
-/* eslint-disable react/prop-types,react/jsx-one-expression-per-line */
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { Col, Row } from 'reactstrap';
 import { formatDistanceStrict } from 'date-fns';
 import imgAlt from '../../../assets/alt.jpg';
 import { apiRoutes } from '../../../routing/apiRoutes';
+import { CommentPropTypes } from '../../../propTypes';
 
 const CommentsItem = ({
   comment: {
@@ -29,5 +30,8 @@ const CommentsItem = ({
     </Col>
   </Row>
 );
+
+CommentsItem.propTypes = CommentPropTypes.propTypes;
+CommentsItem.defaultProps = CommentPropTypes.defaultProps;
 
 export default CommentsItem;
