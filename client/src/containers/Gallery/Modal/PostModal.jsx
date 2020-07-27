@@ -4,7 +4,6 @@ import React from 'react';
 import {
   Col, Modal, ModalHeader, Row,
 } from 'reactstrap';
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import { BsHeart, BsChat } from 'react-icons/bs';
 import { useMediaQuery } from 'react-responsive';
 import CommentsHeader from './CommentsHeader';
@@ -12,6 +11,8 @@ import CommentsItem from './CommentsItem';
 import './PostModal.scss';
 import imgAlt from '../../../assets/alt.jpg';
 import { apiRoutes } from '../../../routing/apiRoutes';
+import ModalButtonNext from './ModalButtonNext';
+import ModalButtonPrevious from './ModalButtonPrevious';
 
 const PostModal = ({
   post, postsLength, onClose, onClickNext, postIndex, onClickPrevious,
@@ -25,7 +26,8 @@ const PostModal = ({
       toggle={onClose}
       className="Compact"
       isOpen
-      external={(
+      external={(!isMobile
+        && (
         <a
           type="button"
           className="close text-light"
@@ -34,6 +36,7 @@ const PostModal = ({
         >
           &times;
         </a>
+        )
       )}
     >
       {
@@ -48,6 +51,17 @@ const PostModal = ({
               <div className="pl-2">
                 <span><b>{post.user.username}</b></span>
               </div>
+              <ModalButtonPrevious
+                onClick={onClickPrevious}
+                currentPostIndex={postIndex}
+                isMobile={isMobile}
+              />
+              <ModalButtonNext
+                currentPostIndex={postIndex}
+                postLength={postsLength}
+                onClick={onClickNext}
+                isMobile={isMobile}
+              />
             </div>
           </ModalHeader>
         )
@@ -87,7 +101,7 @@ const PostModal = ({
                   {
                     post.comments && post.comments.map((comment) => (
                       <div key={comment.id} className="pb-3">
-                        <CommentsItem comment={comment} />x
+                        <CommentsItem comment={comment} />
                       </div>
                     ))
                   }
@@ -105,27 +119,20 @@ const PostModal = ({
         </Row>
       </div>
       {
-        postIndex < postsLength - 1 && (
-          <a
-            onClick={onClickNext}
-            type="button"
-            className="close text-light"
-            style={{ position: 'absolute', top: '48%', right: '-50px' }}
-          >
-            <MdKeyboardArrowRight size={48} />
-          </a>
-        )
-      }
-      {
-        postIndex > 0 && (
-          <a
-            onClick={onClickPrevious}
-            type="button"
-            className="close text-light"
-            style={{ position: 'absolute', top: '48%', left: '-50px' }}
-          >
-            <MdKeyboardArrowLeft size={48} />
-          </a>
+        !isMobile && (
+          <>
+            <ModalButtonNext
+              currentPostIndex={postIndex}
+              postLength={postsLength}
+              onClick={onClickNext}
+              isMobile={isMobile}
+            />
+            <ModalButtonPrevious
+              onClick={onClickPrevious}
+              currentPostIndex={postIndex}
+              isMobile={isMobile}
+            />
+          </>
         )
       }
     </Modal>
