@@ -35,7 +35,7 @@ Both applications must be running at the same time for the client app to get acc
     DB_NAME=instagram_clone
     DB_DIALECT=mysql
     JWT_SECRET_KEY=changeThisAndUseUltraLongStringOfAtLeaseThirtyTwoCharactersOrSomeSecureHash
-    POST=9000
+    PORT=9000
     ```
 
 2. Create specified database (e.g. `instagram_clone`) in mysql.
